@@ -19,7 +19,7 @@ progress. Organizers follow along through this repo, so keep it active.
 | `/docs` | Design notes, diagrams, research |
 | Issues | Track tasks; use the **Progress update** template for weekly check-ins |
 
-## Ground rules
+## Ground Rules
 - Teams are **2–4 people**.
 - Keep the repo **public** — it's part of the open-source, tech-for-good spirit and helps judging.
 - Use the four SDG tracks; build something that helps a real community.
