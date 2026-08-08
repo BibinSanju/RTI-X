@@ -24,13 +24,4 @@ def resolve_helpline(request: HelplineResolveRequest, db: Session = Depends(get_
         suggested_deadline_hours=48
     )
 
-from typing import List, Optional
-from models import EmergencyHelplineResponse
-from database import EmergencyHelpline
 
-@router.get("/emergency-contacts", response_model=List[EmergencyHelplineResponse])
-def get_emergency_contacts(category: Optional[str] = None, db: Session = Depends(get_db)):
-    query = db.query(EmergencyHelpline)
-    if category:
-        query = query.filter(EmergencyHelpline.authority_name.ilike(f"%{category}%"))
-    return query.all()
