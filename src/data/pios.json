@@ -1,0 +1,57 @@
+[
+  {
+    "id": "tn-cbe-madukkarai-muni",
+    "district": "Coimbatore",
+    "localBody": "Madukkarai Municipality",
+    "zoneOrWard": "Madukkarai Market / Bazaar Street",
+    "departmentCategory": "ROADS_AND_SEWAGE",
+    "pioDesignation": "The Public Information Officer & Municipal Commissioner",
+    "officeAddress": "Madukkarai Municipality, Palakkad Main Road, Madukkarai, Coimbatore - 641105, Tamil Nadu.",
+    "pincode": "641105",
+    "onlineSupported": false
+  },
+  {
+    "id": "tn-cbe-ccmc-west",
+    "district": "Coimbatore",
+    "localBody": "Coimbatore City Municipal Corporation (CCMC)",
+    "zoneOrWard": "West Zone / Gandhipuram / RS Puram",
+    "departmentCategory": "ROADS_AND_SEWAGE",
+    "pioDesignation": "The Public Information Officer & Executive Engineer (West Zone)",
+    "officeAddress": "CCMC West Zone Office, RS Puram, Coimbatore - 641002, Tamil Nadu.",
+    "pincode": "641002",
+    "onlineSupported": false
+  },
+  {
+    "id": "tn-cbe-ccmc-east",
+    "district": "Coimbatore",
+    "localBody": "Coimbatore City Municipal Corporation (CCMC)",
+    "zoneOrWard": "East Zone / Singanallur",
+    "departmentCategory": "ROADS_AND_SEWAGE",
+    "pioDesignation": "The Public Information Officer & Executive Engineer (East Zone)",
+    "officeAddress": "CCMC East Zone Office, Singanallur, Coimbatore - 641005, Tamil Nadu.",
+    "pincode": "641005",
+    "onlineSupported": false
+  },
+  {
+    "id": "tn-cbe-twad-board",
+    "district": "Coimbatore",
+    "localBody": "Tamil Nadu Water Supply and Drainage Board (TWAD)",
+    "zoneOrWard": "All Wards",
+    "departmentCategory": "WATER_SUPPLY",
+    "pioDesignation": "The Public Information Officer & Executive Engineer (TWAD Board)",
+    "officeAddress": "TWAD Board Division Office, Race Course Road, Coimbatore - 641018, Tamil Nadu.",
+    "pincode": "641018",
+    "onlineSupported": false
+  },
+  {
+    "id": "tn-cbe-tangedco",
+    "district": "Coimbatore",
+    "localBody": "TANGEDCO / TNEB",
+    "zoneOrWard": "All Wards",
+    "departmentCategory": "ELECTRICITY",
+    "pioDesignation": "The Public Information Officer & Superintending Engineer (Metro Circle)",
+    "officeAddress": "TANGEDCO Metro Circle Office, Tatabad, Coimbatore - 641012, Tamil Nadu.",
+    "pincode": "641012",
+    "onlineSupported": false
+  }
+]
