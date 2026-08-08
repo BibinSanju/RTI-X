@@ -1,3 +1,4 @@
+# pyrefly: ignore [missing-import]
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db, EmergencyHelpline
@@ -8,12 +9,17 @@ router = APIRouter(prefix="/api", tags=["Helplines"])
 
 @router.get("/emergency-contacts", response_model=List[EmergencyHelplineResponse])
 def get_emergency_contacts(category: str, zone: str = None, db: Session = Depends(get_db)):
-    # Make the search very lenient for the demo
-    # If the AI says 'ROADS_AND_SEWAGE', extract 'ROAD' to match DB 'Road' or 'Roads'
-    search_term = "ROAD" if "ROAD" in category.upper() else category
-    
+    # Map the AI classification strictly to the DB structure provided
+    db_category = category
+    if "ROAD" in category.upper():
+        db_category = "ROAD_INFRASTRUCTURE"
+    elif "WATER" in category.upper():
+        db_category = "WATER_SUPPLY"
+    elif "SEWAGE" in category.upper() or "HEALTH" in category.upper():
+        db_category = "GARBAGE_HEALTH"
+        
     query = db.query(EmergencyHelpline).filter(
-        EmergencyHelpline.department_category.ilike(f"%{search_term}%")
+        EmergencyHelpline.department_category.ilike(f"%{db_category}%")
     )
     
     if zone:
