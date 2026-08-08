@@ -1,32 +1,48 @@
-import pioData from '../data/pios.json';
-import { PioInfo, DepartmentCategory } from '../types/rti';
+import piosData from '../data/pios.json';
+import { PIORecord, DepartmentCategory } from '../types/rti.ts';
+
+// Type assertion for imported JSON
+const pioDatabase = piosData as PIORecord[];
 
 /**
- * Fast sub-5ms Pincode & Ward PIO Resolver (pioResolver.ts)
- * Maps Pincode / Area / Department to the exact PIO Designation & Office Address.
+ * Resolves the correct Public Information Officer based on pincode and department category.
+ * Sub-5ms local lookup for the hackathon MVP.
+ * 
+ * @param pincode - The 6 digit pincode of the issue location (e.g. "641018")
+ * @param category - The department category (e.g. "ROADS_AND_SEWAGE")
+ * @returns The matching PIORecord or a default fallback PIO if not found.
  */
-export function resolvePio(
-  pincode: string,
-  areaOrWard: string = '',
-  category: DepartmentCategory = 'ROADS_AND_SEWAGE'
-): PioInfo {
-  const pios = pioData as PioInfo[];
-
-  // Step 1: Match by exact Pincode + Category
-  const exactMatch = pios.find(p => p.pincode === pincode.trim() && p.departmentCategory === category);
-  if (exactMatch) return exactMatch;
-
-  // Step 2: Match by Pincode only
-  const pincodeMatch = pios.find(p => p.pincode === pincode.trim());
-  if (pincodeMatch) return pincodeMatch;
-
-  // Step 3: Match by Area name keyword (e.g. Madukkarai)
-  const areaMatch = pios.find(p => 
-    areaOrWard.toLowerCase().includes(p.zoneOrWard.toLowerCase()) || 
-    p.zoneOrWard.toLowerCase().includes(areaOrWard.toLowerCase())
+export function resolvePio(pincode: string, category: DepartmentCategory): PIORecord {
+  
+  // 1. Try to find an exact match for pincode + category
+  const exactMatch = pioDatabase.find(
+    (pio) => pio.pincode === pincode && pio.department_category === category
   );
-  if (areaMatch) return areaMatch;
+  
+  if (exactMatch) {
+    return exactMatch;
+  }
 
-  // Step 4: Fallback to CCMC West Zone default
-  return pios[1];
+  // 2. Try to find a match just by category (Fallback to the first available for that category)
+  const categoryMatch = pioDatabase.find(
+    (pio) => pio.department_category === category
+  );
+
+  if (categoryMatch) {
+    return categoryMatch;
+  }
+
+  // 3. Ultimate Fallback (Default to CCMC Central Zone if totally unknown)
+  // In a real app, this would route to a generic District Collector PIO
+  return {
+    id: 'pio_fallback',
+    district: 'Coimbatore',
+    local_body: 'Coimbatore District Administration',
+    zone_or_ward: 'General',
+    department_category: category,
+    pio_designation: 'The Public Information Officer',
+    office_address: 'District Collectorate, State Bank Road, Coimbatore',
+    pincode: '641018',
+    online_supported: false
+  };
 }
