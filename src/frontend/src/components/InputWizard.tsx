@@ -370,7 +370,7 @@ export default function InputWizard() {
           
           // Construct the mock output structure since the rest of the UI expects it
           const output: VerifiedRtiOutput = {
-              applicant: { name: fullName, email, phone, address, pincode: "641012" },
+              applicant: { name: fullName, phone, address, pincode: "641012" },
               publicAuthority: {
                   designation: pioDesig,
                   officeAddress: pioAddress,
