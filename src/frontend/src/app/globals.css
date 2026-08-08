@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom CSS Properties ─────────────────────────────────────────── */
+:root {
+  /* Civic-tech brand palette — indigo primary, amber accent */
+  --brand-50:  #eef2ff;
+  --brand-100: #e0e7ff;
+  --brand-200: #c7d2fe;
+  --brand-500: #6366f1;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+  --brand-900: #312e81;
+
+  --success-50:  #f0fdf4;
+  --success-600: #16a34a;
+
+  --warning-50:  #fffbeb;
+  --warning-600: #d97706;
+
+  --danger-50:  #fef2f2;
+  --danger-600: #dc2626;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  @apply bg-slate-50 text-slate-900 min-h-screen;
+}
+
+/* Tamil text uses Noto Sans Tamil for proper rendering */
+.font-tamil,
+[lang="ta"],
+[lang="ta-IN"] p,
+.text-tamil {
+  font-family: var(--font-noto-tamil), var(--font-inter), system-ui, sans-serif;
+}
+
+/* ─── Component Utilities ────────────────────────────────────────────── */
+@layer components {
+  /* Wizard card */
+  .card {
+    @apply bg-white rounded-2xl shadow-sm border border-slate-100;
+  }
+
+  /* Primary action button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-xl font-semibold text-white text-sm
+           bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800
+           transition-all duration-150 ease-in-out
+           focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-indigo-600
+           min-h-[48px];
+  }
+
+  /* Secondary / ghost button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2
+           px-6 py-3 rounded-xl font-semibold text-slate-700 text-sm
+           bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300
+           transition-all duration-150 ease-in-out
+           focus:outline-none focus:ring-4 focus:ring-slate-200 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           min-h-[48px];
+  }
+
+  /* Form input */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
+           text-slate-900 placeholder-slate-400
+           focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+           transition-all duration-150
+           text-base min-h-[48px];
+  }
+
+  /* Validation badge */
+  .badge-success {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+           bg-green-50 text-green-700 border border-green-200;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+           bg-amber-50 text-amber-700 border border-amber-200;
+  }
+
+  .badge-info {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+           bg-indigo-50 text-indigo-700 border border-indigo-200;
+  }
+
+  /* Step pill in wizard progress bar */
+  .step-pill {
+    @apply flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold
+           transition-all duration-300;
+  }
+
+  .step-pill-active {
+    @apply bg-indigo-600 text-white shadow-md shadow-indigo-200;
+  }
+
+  .step-pill-done {
+    @apply bg-green-500 text-white;
+  }
+
+  .step-pill-waiting {
+    @apply bg-slate-100 text-slate-400 border border-slate-200;
+  }
+
+  /* RTI Preview: original complaint card */
+  .complaint-card {
+    @apply card p-5 border-l-4 border-l-amber-400 bg-amber-50;
+  }
+
+  /* RTI Preview: linted legal request card */
+  .linted-card {
+    @apply card p-5 border-l-4 border-l-indigo-500 bg-indigo-50;
+  }
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.35s ease-out forwards;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.25s ease-out forwards;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { @apply bg-slate-100; }
+::-webkit-scrollbar-thumb { @apply bg-slate-300 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-slate-400; }
