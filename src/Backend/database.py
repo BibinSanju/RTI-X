@@ -118,6 +118,8 @@ class PIODirectory(Base):
         Index("idx_pio_lookup", "district", "department_category", "pincode"),
     )
 
+from sqlalchemy.dialects.postgresql import JSONB
+
 class EmergencyHelpline(Base):
     __tablename__ = "emergency_helplines"
 
