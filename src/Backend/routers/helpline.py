@@ -8,9 +8,16 @@ router = APIRouter(prefix="/api", tags=["Helplines"])
 
 @router.get("/emergency-contacts", response_model=List[EmergencyHelplineResponse])
 def get_emergency_contacts(category: str, zone: str = None, db: Session = Depends(get_db)):
-    query = db.query(EmergencyHelpline).filter(EmergencyHelpline.department_category == category)
+    # Make the search very lenient for the demo
+    # If the AI says 'ROADS_AND_SEWAGE', extract 'ROAD' to match DB 'Road' or 'Roads'
+    search_term = "ROAD" if "ROAD" in category.upper() else category
+    
+    query = db.query(EmergencyHelpline).filter(
+        EmergencyHelpline.department_category.ilike(f"%{search_term}%")
+    )
+    
     if zone:
-        query = query.filter(EmergencyHelpline.zone_or_ward == zone)
+        query = query.filter(EmergencyHelpline.zone_or_ward.ilike(f"%{zone}%"))
     
     # Return matched emergency contacts from DB
     return query.all()
