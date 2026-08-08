@@ -5,7 +5,7 @@ from routers import intent, helpline, complaints, rti, cron, appeals
 
 app = FastAPI()
 
-origins = ["https://frontend-rho-two-tniuknfmwg.vercel.app", "http://localhost:3000"]
+origins = ["https://frontend-rho-two-tniuknfmwg.vercel.app", "http://localhost:3000", "https://rti-x-git-main-neural-ninjas.vercel.app"]
 
 app.add_middleware(
     CORSMiddleware,
