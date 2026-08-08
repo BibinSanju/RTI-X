@@ -259,7 +259,7 @@ export default function InputWizard() {
       // Phase 2: Understanding (Classify Intent)
       updateStepStatus('understanding', 'active');
       
-      let classification = { classification: "IMMEDIATE_CAUSE", department: "ROADS_AND_SEWAGE", ward: ward };
+      let classification = { classification: "IMMEDIATE_CAUSE", department: "ROAD_INFRASTRUCTURE", ward: ward };
       
       if (USE_REAL_API) {
         const classifyRes = await fetch('/api/classify-intent', {
