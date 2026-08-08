@@ -118,6 +118,31 @@ class PIODirectory(Base):
         Index("idx_pio_lookup", "district", "department_category", "pincode"),
     )
 
+class EmergencyHelpline(Base):
+    __tablename__ = "emergency_helplines"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    authority_name: Mapped[str] = mapped_column(String(100), nullable=False)
+    department_category: Mapped[str] = mapped_column(String(100), nullable=False)
+    zone_or_ward: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    
+    contact_title: Mapped[str] = mapped_column(String(150), nullable=False)
+    contact_name: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
+    contact_type: Mapped[str] = mapped_column(String(50), nullable=False)
+    contact_value: Mapped[str] = mapped_column(String(50), nullable=False)
+    
+    source_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+
+    __table_args__ = (
+        Index("idx_emergency_lookup", "authority_name", "department_category", "zone_or_ward"),
+    )
+
 Base.metadata.create_all(bind=engine)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
