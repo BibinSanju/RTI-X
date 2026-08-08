@@ -6,10 +6,14 @@ from typing import List
 
 router = APIRouter(prefix="/api", tags=["Helplines"])
 
-@router.get("/emergency-contacts", response_model=EmergencyHelplineResponse)
-def get_emergency_contacts(db: Session = Depends(get_db)):
-    # Return the entire JSON document from the DB
-    return db.query(EmergencyHelpline).first()
+@router.get("/emergency-contacts", response_model=List[EmergencyHelplineResponse])
+def get_emergency_contacts(category: str, zone: str = None, db: Session = Depends(get_db)):
+    query = db.query(EmergencyHelpline).filter(EmergencyHelpline.department_category == category)
+    if zone:
+        query = query.filter(EmergencyHelpline.zone_or_ward == zone)
+    
+    # Return matched emergency contacts from DB
+    return query.all()
 
 @router.post("/helpline/resolve", response_model=HelplineResolveResponse)
 def resolve_helpline(request: HelplineResolveRequest, db: Session = Depends(get_db)):
