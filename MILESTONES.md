@@ -14,15 +14,15 @@ https://t4g.gdgcbe.com/milestones
 
 ## Before Saturday
 
-- [ ] Every member can open this repo and push to it <!--m:pre-repo-->
-- [ ] Anyone under 18 has a guardian consent form submitted <!--m:pre-consent-->
-- [ ] Scaffolding runs on every member’s machine — repo, framework, keys, a hello-world <!--m:pre-scaffold-->
-- [ ] One conversation with a real user of our problem, written down in this repo <!--m:pre-user-->
-- [ ] The one thing we will demo, written in a single sentence we all agree on <!--m:pre-sentence-->
+- [x] Every member can open this repo and push to it <!--m:pre-repo-->
+- [x] Anyone under 18 has a guardian consent form submitted <!--m:pre-consent-->
+- [x] Scaffolding runs on every member’s machine — repo, framework, keys, a hello-world <!--m:pre-scaffold-->
+- [x] One conversation with a real user of our problem, written down in this repo <!--m:pre-user-->
+- [x] The one thing we will demo, written in a single sentence we all agree on <!--m:pre-sentence-->
 
 ## Saturday
 
-- [ ] 1:00 PM — architecture decided and in the README, and a commit from every member <!--m:sat-arch-->
+- [x] 1:00 PM — architecture decided and in the README, and a commit from every member <!--m:sat-arch-->
 - [ ] 5:00 PM — the core path works end to end on one happy input <!--m:sat-core-->
 - [ ] 5:00 PM — we can say in one sentence what our tool does when it is not sure <!--m:sat-unsure-->
 - [ ] 7:00 PM — talked to a mentor, wrote down what they said, and dropped something <!--m:sat-mentor-->
