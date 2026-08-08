@@ -26,6 +26,8 @@ import {
 
 import VoiceRecorder from '@/components/VoiceRecorder';
 import RtiPreview from '@/components/RtiPreview';
+import EmergencyBanner from '@/components/EmergencyBanner';
+import { fetchEmergencyContacts } from '@/lib/emergencyContacts';
 import {
   mockExtractAndLint,
   mockResolvePio,
@@ -182,6 +184,8 @@ export default function InputWizard() {
   const [inputMode, setInputMode] = useState<'voice' | 'text'>('voice');
   const [transcribedText, setTranscribedText] = useState('');
   const [editedTranscription, setEditedTranscription] = useState('');
+
+  const [hasAddressedIssue, setHasCalledHelpline] = useState(false);
   const [manualText, setManualText] = useState('');
 
   // Processing state
@@ -274,7 +278,17 @@ export default function InputWizard() {
       const DUMMY_USER_ID = "00000000-0000-0000-0000-000000000000";
 
       if (classification.classification === "IMMEDIATE_CAUSE") {
-          let hData = { contact_person: "Ward Engineer", helpline_number: "+91-0000000000", suggested_deadline_hours: 48 };
+          let hData: any = { 
+              category: classification.department
+          };
+          try {
+            const ward_name = ward || classification.ward;
+            const contactsRes = await fetchEmergencyContacts(classification.department, "HIGH", ward_name);
+            hData.contactsData = contactsRes;
+          } catch (e) {
+            console.error(e);
+            hData.contactsData = null;
+          }
           if (USE_REAL_API) {
             const resolveRes = await fetch('/api/helpline/resolve', {
                 method: 'POST',
@@ -803,17 +817,24 @@ export default function InputWizard() {
             STEP 3 — REVIEW (RtiPreview)
            ═══════════════════════════════════════════════════════════════ */}
         {step === 'review' && rtiOutput && (
-          <RtiPreview
-            output={rtiOutput}
-            onConfirm={(confirmed) => {
-              setConfirmedOutput(confirmed);
-              setStep('final');
-            }}
-            onEdit={() => {
-              setStep('input');
-              setActivePage(2);
-            }}
-          />
+          <div className="space-y-6">
+            <EmergencyBanner 
+              category={rtiOutput.extractedEntities.category} 
+              severity={(rtiOutput.extractedEntities.urgency as any) || 'HIGH'} 
+              pincode={rtiOutput.applicant.pincode}
+            />
+            <RtiPreview
+              output={rtiOutput}
+              onConfirm={(confirmed) => {
+                setConfirmedOutput(confirmed);
+                setStep('final');
+              }}
+              onEdit={() => {
+                setStep('input');
+                setActivePage(2);
+              }}
+            />
+          </div>
         )}
 
         {/* ═══════════════════════════════════════════════════════════════
@@ -905,28 +926,46 @@ export default function InputWizard() {
               </p>
             </div>
 
-            <div className="border border-slate-200 rounded-lg p-4 space-y-3 bg-slate-50">
-              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-indigo-600" />
-                Local Helpline Details
-              </h3>
-              <div>
-                <p className="text-sm font-semibold text-slate-900">
-                  {helplineData.contact_person}
-                </p>
-                <p className="text-lg text-indigo-600 font-bold mt-1">
-                  {helplineData.helpline_number}
-                </p>
-                <p className="text-xs text-slate-500 mt-2">
-                  Suggested Resolution Time: {helplineData.suggested_deadline_hours} hours
-                </p>
+            {helplineData.contactsData && helplineData.contactsData.contacts && helplineData.contactsData.contacts.length > 0 ? (
+              <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md shadow-sm">
+                <h3 className="text-lg font-medium text-red-800 mb-2">Please call the number below to report:</h3>
+                <ul className="space-y-3">
+                  {helplineData.contactsData.contacts.map((contact: any) => (
+                    <li key={contact.id} className="bg-white p-3 rounded border border-red-200 shadow-sm">
+                      <span className="font-semibold text-gray-900">{contact.title}: </span>
+                      <a href={`tel:${contact.value.replace(/\s+/g, '')}`} className="text-blue-700 hover:underline font-bold text-lg">
+                        {contact.value}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-5 bg-white p-3 rounded border border-gray-300">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input 
+                      type="checkbox" 
+                      className="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
+                      checked={hasAddressedIssue} 
+                      onChange={(e) => setHasCalledHelpline(e.target.checked)} 
+                    />
+                    <span className="text-sm font-medium text-slate-800">I have addressed the issue / called the number</span>
+                  </label>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md text-sm text-yellow-800 font-medium">
+                No emergency contacts found in the database for this category ({helplineData.category}). Please populate the DB.
+              </div>
+            )}
 
-            <div className="space-y-3">
+            <div className="space-y-3 mt-6">
               <button
                 type="button"
-                className="w-full min-h-[44px] py-3 bg-emerald-600 text-white font-semibold text-sm rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center shadow-xs"
+                disabled={helplineData.contactsData && helplineData.contactsData.contacts?.length > 0 ? !hasAddressedIssue : false}
+                className={`w-full min-h-[44px] py-3 text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center shadow-xs ${
+                  (helplineData.contactsData && helplineData.contactsData.contacts?.length > 0 && !hasAddressedIssue) 
+                    ? 'bg-slate-300 cursor-not-allowed' 
+                    : 'bg-emerald-600 hover:bg-emerald-700'
+                }`}
                 onClick={async () => {
                     if (USE_REAL_API && complaintId) {
                       await fetch(`/api/complaints/update-status/${complaintId}`, {
@@ -936,10 +975,10 @@ export default function InputWizard() {
                       });
                     }
                     handleReset();
-                    alert("Ticket Registered! We will follow up with you in 48 hours.");
+                    alert("Ticket Registered! Timeline of 48 hours has been activated.");
                 }}
               >
-                Call Helpline & Register Ticket
+                Register Ticket
               </button>
               
               <button

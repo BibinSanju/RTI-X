@@ -1,11 +1,21 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from database import get_db, PIODirectory
-from models import HelplineResolveRequest, HelplineResolveResponse
+from database import get_db, EmergencyHelpline
+from models import HelplineResolveRequest, HelplineResolveResponse, EmergencyHelplineResponse
+from typing import List
 
-router = APIRouter(prefix="/api/helpline", tags=["Helplines"])
+router = APIRouter(prefix="/api", tags=["Helplines"])
 
-@router.post("/resolve", response_model=HelplineResolveResponse)
+@router.get("/emergency-contacts", response_model=List[EmergencyHelplineResponse])
+def get_emergency_contacts(category: str, zone: str = None, db: Session = Depends(get_db)):
+    query = db.query(EmergencyHelpline).filter(EmergencyHelpline.department_category == category)
+    if zone:
+        query = query.filter(EmergencyHelpline.zone_or_ward == zone)
+    
+    # Return matched emergency contacts from DB
+    return query.all()
+
+@router.post("/helpline/resolve", response_model=HelplineResolveResponse)
 def resolve_helpline(request: HelplineResolveRequest, db: Session = Depends(get_db)):
     # Mock logic
     return HelplineResolveResponse(
