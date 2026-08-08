@@ -40,7 +40,7 @@ import type {
   VerifiedRtiOutput,
 } from '@/types/rti';
 
-const USE_REAL_API = false;
+const USE_REAL_API = process.env.NEXT_PUBLIC_USE_REAL_API === 'true';
 
 const INITIAL_STEPS: ProcessingStep[] = [
   {
@@ -161,7 +161,7 @@ function ProcessingStepRow({ step }: { step: ProcessingStep }) {
 export default function InputWizard() {
   // Page 1 vs Page 2 state (for input phase)
   const [activePage, setActivePage] = useState<1 | 2>(1);
-  const [step, setStep] = useState<WizardStep>('input');
+  const [step, setStep] = useState<WizardStep | 'helpline'>('input');
 
   // Page 1 Form Fields
   const [fullName, setFullName] = useState('');
@@ -192,6 +192,8 @@ export default function InputWizard() {
   const [rtiOutput, setRtiOutput] = useState<VerifiedRtiOutput | null>(null);
   const [confirmedOutput, setConfirmedOutput] = useState<VerifiedRtiOutput | null>(null);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
+  const [helplineData, setHelplineData] = useState<any>(null);
+  const [complaintId, setComplaintId] = useState<string | null>(null);
 
   const updateStepStatus = useCallback(
     (id: ProcessingStep['id'], status: ProcessingStepStatus) => {
@@ -250,70 +252,130 @@ export default function InputWizard() {
       await new Promise((r) => setTimeout(r, 400));
       updateStepStatus('transcribing', 'done');
 
-      // Phase 2: Entity extraction + linting
+      // Phase 2: Understanding (Classify Intent)
       updateStepStatus('understanding', 'active');
-      let entities: ExtractedEntities;
-      let lintedQueries: LintedRtiQuery[];
-
+      
+      let classification = { classification: "IMMEDIATE_CAUSE", department: "Municipal Corporation", ward: ward };
+      
       if (USE_REAL_API) {
-        const res = await fetch('/api/extract-entities', {
+        const classifyRes = await fetch('/api/classify-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: finalProblemText }),
+          body: JSON.stringify({ grievance_text: finalProblemText }),
         });
-        if (!res.ok) throw new Error(`Extract-entities failed: ${res.status}`);
-        const data = await res.json();
-        entities = data.entities;
-        lintedQueries = data.lintedQueries;
-      } else {
-        const result = await mockExtractAndLint(finalProblemText);
-        entities = result.entities;
-        lintedQueries = result.lintedQueries;
+        if (!classifyRes.ok) throw new Error(`Classification failed`);
+        classification = await classifyRes.json();
       }
-
-      // Populate applicant details from Page 1
-      entities.applicantName = fullName.trim() || entities.applicantName;
-      const pincodeMatch = address.match(/\b\d{6}\b/);
-      const extractedPincode = pincodeMatch ? pincodeMatch[0] : '641012';
-      entities.pincode = extractedPincode;
-      if (ward.trim()) {
-        entities.areaOrWard = ward.trim();
-      }
-
+      
       updateStepStatus('understanding', 'done');
-
-      // Phase 3: PIO resolution
       updateStepStatus('resolving', 'active');
-      let publicAuthority: VerifiedRtiOutput['publicAuthority'];
+      
+      // Dummy user ID for testing since auth is not integrated
+      const DUMMY_USER_ID = "00000000-0000-0000-0000-000000000000";
 
-      if (USE_REAL_API) {
-        const res = await fetch(
-          `/api/resolve-pio?pincode=${entities.pincode}&category=${entities.category}`
-        );
-        if (!res.ok) throw new Error(`PIO resolver failed: ${res.status}`);
-        publicAuthority = await res.json();
+      if (classification.classification === "IMMEDIATE_CAUSE") {
+          let hData = { contact_person: "Ward Engineer", helpline_number: "+91-0000000000", suggested_deadline_hours: 48 };
+          if (USE_REAL_API) {
+            const resolveRes = await fetch('/api/helpline/resolve', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    district: "Coimbatore",
+                    ward: ward || classification.ward,
+                    department: classification.department
+                }),
+            });
+            if (resolveRes.ok) hData = await resolveRes.json();
+          }
+          
+          if (USE_REAL_API) {
+            const createRes = await fetch('/api/complaints/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: DUMMY_USER_ID,
+                    district: "Coimbatore",
+                    ward_name: ward || classification.ward,
+                    department_category: classification.department,
+                    rejection_risk_score: "LOW"
+                }),
+            });
+            if (createRes.ok) {
+              const complaint = await createRes.json();
+              setComplaintId(complaint.id);
+            }
+          }
+          
+          setHelplineData(hData);
+          updateStepStatus('resolving', 'done');
+          setStep('helpline');
       } else {
-        publicAuthority = await mockResolvePio(entities.pincode, entities.category);
+          // DIRECT_RTI
+          let cId = "mock-complaint";
+          if (USE_REAL_API) {
+            const createRes = await fetch('/api/complaints/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: DUMMY_USER_ID,
+                    district: "Coimbatore",
+                    ward_name: ward || classification.ward,
+                    department_category: classification.department,
+                    rejection_risk_score: "LOW"
+                }),
+            });
+            if (createRes.ok) {
+              const complaint = await createRes.json();
+              cId = complaint.id;
+              setComplaintId(complaint.id);
+            }
+          }
+          
+          let draftText = "Under Section 2(f) of the RTI Act...";
+          let pioDesig = "Public Information Officer";
+          let pioAddress = "Municipal Corporation";
+          
+          if (USE_REAL_API) {
+            const rtiRes = await fetch('/api/rti/draft', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    complaint_id: cId,
+                    user_description: finalProblemText
+                })
+            });
+            if (rtiRes.ok) {
+              const rtiDraft = await rtiRes.json();
+              draftText = rtiDraft.rti_text;
+              pioDesig = rtiDraft.target_pio_designation;
+              pioAddress = rtiDraft.target_pio_address;
+            }
+          }
+          
+          updateStepStatus('resolving', 'done');
+          
+          // Construct the mock output structure since the rest of the UI expects it
+          const output: VerifiedRtiOutput = {
+              applicant: { name: fullName, email, phone, address, pincode: "641012" },
+              publicAuthority: {
+                  designation: pioDesig,
+                  officeAddress: pioAddress,
+                  name: classification.department,
+                  district: "Coimbatore",
+                  pincode: "641012"
+              },
+              lintedQueries: [{ originalText: "", lintedText: draftText, type: "Data" }],
+              extractedEntities: { 
+                  intent: "DIRECT_RTI", 
+                  category: classification.department, 
+                  locationDetails: ward, 
+                  timeframe: "", 
+                  urgency: "LOW" 
+              }
+          };
+          setRtiOutput(output);
+          setStep('review');
       }
-
-      updateStepStatus('resolving', 'done');
-
-      // Assemble final output
-      const fullAddressString = ward.trim()
-        ? `${address.trim()}, ${ward.trim()}`
-        : address.trim();
-
-      const output = assembleMockOutput(
-        fullName.trim(),
-        extractedPincode,
-        entities,
-        lintedQueries,
-        publicAuthority
-      );
-      output.applicant.address = fullAddressString;
-
-      setRtiOutput(output);
-      setStep('review');
     } catch (err) {
       setProcessingError(
         err instanceof Error ? err.message : 'Something went wrong. Please try again.'
@@ -823,6 +885,69 @@ export default function InputWizard() {
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 Start a new RTI
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════════════
+            STEP: HELPLINE (Immediate Cause)
+           ═══════════════════════════════════════════════════════════════ */}
+        {step === 'helpline' && helplineData && (
+          <div className="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 max-w-lg mx-auto shadow-xs space-y-6">
+            <div className="text-center space-y-2">
+              <div className="w-14 h-14 rounded-2xl bg-orange-100 mx-auto flex items-center justify-center">
+                <Search className="w-7 h-7 text-orange-600" />
+              </div>
+              <h2 className="text-xl font-bold text-slate-900">Let's Try Solving This First!</h2>
+              <p className="text-xs text-slate-500">
+                This issue looks like an immediate problem that can be resolved locally without filing a formal RTI.
+              </p>
+            </div>
+
+            <div className="border border-slate-200 rounded-lg p-4 space-y-3 bg-slate-50">
+              <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-indigo-600" />
+                Local Helpline Details
+              </h3>
+              <div>
+                <p className="text-sm font-semibold text-slate-900">
+                  {helplineData.contact_person}
+                </p>
+                <p className="text-lg text-indigo-600 font-bold mt-1">
+                  {helplineData.helpline_number}
+                </p>
+                <p className="text-xs text-slate-500 mt-2">
+                  Suggested Resolution Time: {helplineData.suggested_deadline_hours} hours
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <button
+                type="button"
+                className="w-full min-h-[44px] py-3 bg-emerald-600 text-white font-semibold text-sm rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center shadow-xs"
+                onClick={async () => {
+                    if (USE_REAL_API && complaintId) {
+                      await fetch(`/api/complaints/update-status/${complaintId}`, {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ status: "LOCAL_DEADLINE_EXPIRED" })
+                      });
+                    }
+                    handleReset();
+                    alert("Ticket Registered! We will follow up with you in 48 hours.");
+                }}
+              >
+                Call Helpline & Register Ticket
+              </button>
+              
+              <button
+                type="button"
+                className="w-full py-2.5 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
+                onClick={() => handleReset()}
+              >
+                Start Over
               </button>
             </div>
           </div>

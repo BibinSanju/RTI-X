@@ -8,6 +8,18 @@ router = APIRouter(prefix="/api/complaints", tags=["Complaints"])
 
 @router.post("/create", response_model=ComplaintResponse)
 def create_complaint(request: ComplaintCreate, db: Session = Depends(get_db)):
+    # Ensure the user exists, create a dummy one if not
+    user = db.query(User).filter(User.id == request.user_id).first()
+    if not user:
+        user = User(
+            id=request.user_id,
+            contact_method="EMAIL",
+            contact_value=f"test_{request.user_id}@example.com"
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
     db_complaint = Complaint(
         user_id=request.user_id,
         district=request.district,
