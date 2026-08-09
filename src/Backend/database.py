@@ -42,9 +42,27 @@ class User(Base):
     )
     contact_method: Mapped[str] = mapped_column(String(50), nullable=False) # e.g. email, phone, push
     contact_value: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    
+    # First stage details
+    name: Mapped[Optional[str]] = mapped_column(String(150), nullable=True)
+    email: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
+    phone_number: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    address: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    
+    # Second stage (RTI) details
+    gender: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    pincode: Mapped[Optional[str]] = mapped_column(String(10), nullable=True)
+    country: Mapped[str] = mapped_column(String(50), default="India")
+    state: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    status_rural_urban: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    educational_status: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
+    citizenship: Mapped[str] = mapped_column(String(50), default="Indian")
+    is_bpl: Mapped[Optional[bool]] = mapped_column(Boolean, nullable=True)
+    
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     
     complaints: Mapped[list["Complaint"]] = relationship("Complaint", back_populates="user")
 
@@ -61,6 +79,7 @@ class Complaint(Base):
     district: Mapped[str] = mapped_column(String(100), nullable=False)
     ward_name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
     department_category: Mapped[str] = mapped_column(String(100), nullable=False)
+    problem_description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     
     status: Mapped[str] = mapped_column(
         String(50), default="PENDING_CALL_CONFIRMATION", nullable=False
@@ -98,8 +117,8 @@ class Complaint(Base):
 class PIODirectory(Base):
     __tablename__ = "pio_directory"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    id: Mapped[str] = mapped_column(
+        String(100), primary_key=True
     )
     district: Mapped[str] = mapped_column(String(100), nullable=False)
     local_body: Mapped[str] = mapped_column(String(150), nullable=False)

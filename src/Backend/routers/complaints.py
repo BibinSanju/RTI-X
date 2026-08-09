@@ -1,8 +1,11 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database import get_db, Complaint, User
-from models import ComplaintCreate, ComplaintUpdateStatus, ComplaintResponse
+from models import ComplaintCreate, ComplaintUpdateStatus, ComplaintResponse, CallStatusRequest, ResolutionStatusRequest, RTIStatusRequest
 from datetime import datetime, timedelta, timezone
+from utils.llm import generate_local_resolution_deadline
+from typing import List
+from fastapi import HTTPException
 
 router = APIRouter(prefix="/api/complaints", tags=["Complaints"])
 
@@ -25,6 +28,7 @@ def create_complaint(request: ComplaintCreate, db: Session = Depends(get_db)):
         district=request.district,
         ward_name=request.ward_name,
         department_category=request.department_category,
+        problem_description=request.problem_description,
         rejection_risk_score=request.rejection_risk_score,
         status="PENDING_CALL_CONFIRMATION"
     )
@@ -33,13 +37,65 @@ def create_complaint(request: ComplaintCreate, db: Session = Depends(get_db)):
     db.refresh(db_complaint)
     return db_complaint
 
-@router.post("/update-status/{complaint_id}", response_model=ComplaintResponse)
-def update_complaint_status(complaint_id: str, request: ComplaintUpdateStatus, db: Session = Depends(get_db)):
+@router.post("/{complaint_id}/call-status", response_model=ComplaintResponse)
+def update_call_status(complaint_id: str, request: CallStatusRequest, db: Session = Depends(get_db)):
     complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
-    if complaint:
-        complaint.status = request.status
-        if request.status == "RTI_FILED":
-            complaint.statutory_deadline_date = datetime.now(timezone.utc) + timedelta(days=30)
-        db.commit()
-        db.refresh(complaint)
+    if not complaint:
+        raise HTTPException(status_code=404, detail="Complaint not found")
+        
+    if request.answered:
+        complaint.status = "PENDING_RESOLUTION"
+        complaint.local_resolution_deadline = generate_local_resolution_deadline(complaint.problem_description or "")
+    else:
+        complaint.status = "PENDING_REPLY_SLA"
+        complaint.local_resolution_deadline = datetime.now(timezone.utc) + timedelta(hours=48)
+        
+    db.commit()
+    db.refresh(complaint)
     return complaint
+
+@router.post("/{complaint_id}/resolution-status", response_model=ComplaintResponse)
+def update_resolution_status(complaint_id: str, request: ResolutionStatusRequest, db: Session = Depends(get_db)):
+    complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
+    if not complaint:
+        raise HTTPException(status_code=404, detail="Complaint not found")
+        
+    if request.cleared:
+        complaint.status = "RESOLVED"
+    else:
+        if complaint.status == "PENDING_REPLY_SLA" and request.replied:
+            complaint.status = "PENDING_RESOLUTION"
+            complaint.local_resolution_deadline = generate_local_resolution_deadline(complaint.problem_description or "")
+        else:
+            # Not cleared and deadline is up, or didn't reply after SLA
+            complaint.status = "PENDING_RTI_SUBMISSION"
+            
+    db.commit()
+    db.refresh(complaint)
+    return complaint
+
+@router.post("/{complaint_id}/rti-status", response_model=ComplaintResponse)
+def update_rti_status(complaint_id: str, request: RTIStatusRequest, db: Session = Depends(get_db)):
+    complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
+    if not complaint:
+        raise HTTPException(status_code=404, detail="Complaint not found")
+        
+    if request.submitted:
+        complaint.status = "PENDING_RTI_RESPONSE"
+        complaint.statutory_deadline_date = datetime.now(timezone.utc) + timedelta(days=30)
+        
+    db.commit()
+    db.refresh(complaint)
+    return complaint
+
+@router.get("/{complaint_id}", response_model=ComplaintResponse)
+def get_complaint(complaint_id: str, db: Session = Depends(get_db)):
+    complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
+    if not complaint:
+        raise HTTPException(status_code=404, detail="Complaint not found")
+    return complaint
+
+@router.get("/user/{user_id}", response_model=List[ComplaintResponse])
+def get_user_complaints(user_id: str, db: Session = Depends(get_db)):
+    complaints = db.query(Complaint).filter(Complaint.user_id == user_id).order_by(Complaint.created_at.desc()).all()
+    return complaints
