@@ -1,3 +1,6 @@
+import os
+import requests
+import json
 from fastapi import APIRouter
 from models import ClassifyIntentRequest, ClassifyIntentResponse
 
@@ -5,11 +8,56 @@ router = APIRouter(prefix="/api", tags=["Intent Classification"])
 
 @router.post("/classify-intent", response_model=ClassifyIntentResponse)
 def classify_intent(request: ClassifyIntentRequest):
-    # TODO: Integrate with Gemini API for actual classification
-    # Mock response for now
+    api_key = os.environ.get("GROQ_API_KEY_CLASSIFIER", os.environ.get("GROQ_API_KEY"))
+    
+    system_prompt = """You are an AI classification engine for a public grievance system.
+Classify the user's grievance into one of these exact categories:
+ROADS_AND_SEWAGE, WATER_SUPPLY, ELECTRICITY, PUBLIC_HEALTH, BUILDING_APPROVAL, HIGHWAYS, REVENUE_AND_TAX, EDUCATION, TRANSPORT, CIVIL_SUPPLIES, HEALTHCARE, REGISTRATION, GENERAL, APPEAL.
+
+Respond ONLY with a JSON object in this exact format:
+{
+  "category": "CATEGORY_NAME",
+  "classification": "IMMEDIATE_CAUSE", 
+  "ward": "Unknown"
+}
+"""
+    try:
+        response = requests.post(
+            'https://api.groq.com/openai/v1/chat/completions',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {api_key}'
+            },
+            json={
+                'model': 'llama3-70b-8192',
+                'messages': [
+                    {'role': 'system', 'content': system_prompt},
+                    {'role': 'user', 'content': f'Grievance: "{request.grievance_text}"'}
+                ],
+                'response_format': {'type': 'json_object'},
+                'temperature': 0.1
+            }
+        )
+        if response.status_code == 200:
+            data = response.json()
+            result = json.loads(data['choices'][0]['message']['content'])
+            category = result.get("category", "GENERAL")
+            classification_type = result.get("classification", "IMMEDIATE_CAUSE")
+            
+            return ClassifyIntentResponse(
+                classification=classification_type,
+                department=category,
+                ward=result.get("ward", "Unknown"),
+                extracted_entities={"issue": request.grievance_text}
+            )
+    except Exception as e:
+        print("Groq API error:", e)
+
+    # Fallback response
     return ClassifyIntentResponse(
         classification="IMMEDIATE_CAUSE",
-        department="Water Board",
-        ward="Ward 10",
+        department="GENERAL",
+        ward="Unknown",
         extracted_entities={"issue": request.grievance_text}
     )
+
