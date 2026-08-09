@@ -301,7 +301,10 @@ export default function InputWizard() {
                     department: classification.department
                 }),
             });
-            if (resolveRes.ok) hData = await resolveRes.json();
+            if (resolveRes.ok) {
+                const resolution = await resolveRes.json();
+                hData.resolution = resolution;
+            }
           }
           
           if (USE_REAL_API) {
