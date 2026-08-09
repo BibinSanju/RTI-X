@@ -7,11 +7,35 @@ import uuid
 class UserCreate(BaseModel):
     contact_method: str
     contact_value: str
+    name: Optional[str] = None
+    email: Optional[str] = None
+    phone_number: Optional[str] = None
+    address: Optional[str] = None
+    gender: Optional[str] = None
+    pincode: Optional[str] = None
+    country: str = "India"
+    state: Optional[str] = None
+    status_rural_urban: Optional[str] = None
+    educational_status: Optional[str] = None
+    citizenship: str = "Indian"
+    is_bpl: Optional[bool] = None
 
 class UserResponse(BaseModel):
     id: uuid.UUID
     contact_method: str
     contact_value: str
+    name: Optional[str] = None
+    email: Optional[str] = None
+    phone_number: Optional[str] = None
+    address: Optional[str] = None
+    gender: Optional[str] = None
+    pincode: Optional[str] = None
+    country: str
+    state: Optional[str] = None
+    status_rural_urban: Optional[str] = None
+    educational_status: Optional[str] = None
+    citizenship: str
+    is_bpl: Optional[bool] = None
     created_at: datetime
     
     model_config = ConfigDict(from_attributes=True)
@@ -22,10 +46,21 @@ class ComplaintCreate(BaseModel):
     district: str
     ward_name: Optional[str] = None
     department_category: str
+    problem_description: Optional[str] = None
     rejection_risk_score: str = "LOW"
 
 class ComplaintUpdateStatus(BaseModel):
     status: str
+
+class CallStatusRequest(BaseModel):
+    answered: bool
+
+class ResolutionStatusRequest(BaseModel):
+    cleared: bool
+    replied: Optional[bool] = None
+
+class RTIStatusRequest(BaseModel):
+    submitted: bool
 
 class ComplaintResponse(BaseModel):
     id: uuid.UUID
@@ -33,6 +68,7 @@ class ComplaintResponse(BaseModel):
     district: str
     ward_name: Optional[str] = None
     department_category: str
+    problem_description: Optional[str] = None
     status: str
     last_notified_at: Optional[datetime] = None
     notification_retry_count: int
@@ -57,7 +93,7 @@ class PIODirectoryCreate(BaseModel):
     online_supported: bool = False
 
 class PIODirectoryResponse(PIODirectoryCreate):
-    id: uuid.UUID
+    id: str
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
