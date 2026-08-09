@@ -4,6 +4,7 @@ from database import get_db, Complaint, User
 from models import ComplaintCreate, ComplaintUpdateStatus, ComplaintResponse, CallStatusRequest, ResolutionStatusRequest, RTIStatusRequest
 from datetime import datetime, timedelta, timezone
 from utils.llm import generate_local_resolution_deadline
+from typing import List
 from fastapi import HTTPException
 
 router = APIRouter(prefix="/api/complaints", tags=["Complaints"])
@@ -86,3 +87,15 @@ def update_rti_status(complaint_id: str, request: RTIStatusRequest, db: Session 
     db.commit()
     db.refresh(complaint)
     return complaint
+
+@router.get("/{complaint_id}", response_model=ComplaintResponse)
+def get_complaint(complaint_id: str, db: Session = Depends(get_db)):
+    complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
+    if not complaint:
+        raise HTTPException(status_code=404, detail="Complaint not found")
+    return complaint
+
+@router.get("/user/{user_id}", response_model=List[ComplaintResponse])
+def get_user_complaints(user_id: str, db: Session = Depends(get_db)):
+    complaints = db.query(Complaint).filter(Complaint.user_id == user_id).order_by(Complaint.created_at.desc()).all()
+    return complaints

@@ -25,6 +25,7 @@ import {
   ArrowRight,
   Edit3,
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import VoiceRecorder from '@/components/VoiceRecorder';
 import RtiPreview from '@/components/RtiPreview';
@@ -163,6 +164,8 @@ function ProcessingStepRow({ step }: { step: ProcessingStep }) {
 }
 
 export default function InputWizard() {
+  const router = useRouter();
+
   // Page 1 vs Page 2 state (for input phase)
   const [activePage, setActivePage] = useState<1 | 2>(1);
   const [step, setStep] = useState<WizardStep | 'helpline'>('input');
@@ -910,6 +913,18 @@ export default function InputWizard() {
 
               <button
                 type="button"
+                className="w-full py-2.5 text-sm font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors"
+                onClick={() => {
+                  if (complaintId) {
+                    router.push(`/update-status/${complaintId}`);
+                  }
+                }}
+              >
+                Track RTI Application
+              </button>
+
+              <button
+                type="button"
                 className="w-full py-2.5 text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
                 onClick={() => setStep('review')}
               >
@@ -984,15 +999,9 @@ export default function InputWizard() {
                     : 'bg-emerald-600 hover:bg-emerald-700'
                 }`}
                 onClick={async () => {
-                    if (USE_REAL_API && complaintId) {
-                      await fetch(`/api/complaints/update-status/${complaintId}`, {
-                          method: 'POST',
-                          headers: { 'Content-Type': 'application/json' },
-                          body: JSON.stringify({ status: "LOCAL_DEADLINE_EXPIRED" })
-                      });
+                    if (complaintId) {
+                      router.push(`/update-status/${complaintId}`);
                     }
-                    handleReset();
-                    alert("Ticket Registered! Timeline of 48 hours has been activated.");
                 }}
               >
                 Register Ticket
