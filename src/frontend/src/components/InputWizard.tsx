@@ -280,7 +280,7 @@ export default function InputWizard() {
       const DUMMY_USER_ID = "00000000-0000-0000-0000-000000000000";
 
       if (classification.classification === "IMMEDIATE_CAUSE") {
-          let hData: any = { 
+          const hData: any = { 
               category: classification.department
           };
           try {
