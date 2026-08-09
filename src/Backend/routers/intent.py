@@ -13,10 +13,10 @@ def classify_intent(request: ClassifyIntentRequest):
     system_prompt = """You are an AI classification engine for a public grievance system in Tamil Nadu.
 The user's grievance may be in English, Tamil, or Tanglish (a mix of both).
 Classify the user's grievance into one of these exact categories:
-ROADS_AND_SEWAGE, WATER_SUPPLY, ELECTRICITY, PUBLIC_HEALTH, BUILDING_APPROVAL, HIGHWAYS, REVENUE_AND_TAX, EDUCATION, TRANSPORT, CIVIL_SUPPLIES, HEALTHCARE, REGISTRATION, GENERAL, APPEAL.
+ROAD_INFRASTRUCTURE, SEWAGE_DRAINAGE, WATER_SUPPLY, ELECTRICITY, GARBAGE_HEALTH, BUILDING_APPROVAL, HIGHWAYS, REVENUE_AND_TAX, EDUCATION, TRANSPORT, CIVIL_SUPPLIES, HEALTHCARE, REGISTRATION, GENERAL, APPEAL.
 
 CRITICAL INSTRUCTIONS:
-- If the text mentions "road", "pothole", "otai" (hole), "road-la otai" (hole in the road), classify as ROADS_AND_SEWAGE.
+- If the text mentions "road", "pothole", "otai" (hole), "road-la otai" (hole in the road), classify as ROAD_INFRASTRUCTURE.
 - If the text mentions water, pipes, drinking water, classify as WATER_SUPPLY.
 
 Respond ONLY with a JSON object in this exact format:
