@@ -48,8 +48,7 @@ export async function fetchEmergencyContacts(
   // but let's fetch them anyway just in case the backend wants to return portal links.
   
   try {
-    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://rti-x.onrender.com';
-    const res = await fetch(`${backendUrl}/api/emergency-contacts?category=${category}&zone=${pincode || ''}`);
+    const res = await fetch(`/api/emergency-contacts?category=${category}&zone=${pincode || ''}`);
     
     if (!res.ok) {
       console.warn("Backend /api/emergency-contacts failed, falling back to mock");
