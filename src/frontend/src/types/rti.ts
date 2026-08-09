@@ -88,6 +88,7 @@ export interface VerifiedRtiOutput {
   };
   hasSec6_3Clause: boolean;
   generatedAt: string;
+  extractedEntities?: Partial<ExtractedEntities> & { urgency?: string };
 }
 
 export interface IntimationNoticeData {

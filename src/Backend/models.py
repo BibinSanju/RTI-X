@@ -62,6 +62,24 @@ class PIODirectoryResponse(PIODirectoryCreate):
 
     model_config = ConfigDict(from_attributes=True)
 
+# Emergency Helpline Models
+class EmergencyHelplineCreate(BaseModel):
+    authority_name: str
+    department_category: str
+    zone_or_ward: Optional[str] = None
+    contact_title: str
+    contact_name: Optional[str] = None
+    contact_type: str
+    contact_value: str
+    source_url: Optional[str] = None
+    verified_at: Optional[datetime] = None
+
+class EmergencyHelplineResponse(EmergencyHelplineCreate):
+    id: uuid.UUID
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
 # API Endpoint Request/Response Models
 class ClassifyIntentRequest(BaseModel):
     grievance_text: str
