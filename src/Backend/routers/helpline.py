@@ -21,11 +21,20 @@ def get_emergency_contacts(category: str, zone: str = None, db: Session = Depend
     query = db.query(EmergencyHelpline).filter(
         EmergencyHelpline.department_category.ilike(f"%{db_category}%")
     )
+
+    print("before filter" , query.all())
     
     if zone:
-        query = query.filter(EmergencyHelpline.zone_or_ward.ilike(f"%{zone}%"))
+        from sqlalchemy import or_
+        query = query.filter(
+            or_(
+                EmergencyHelpline.zone_or_ward.ilike(f"%{zone}%"),
+                EmergencyHelpline.zone_or_ward.is_(None)
+            )
+        )
     
     # Return matched emergency contacts from DB
+    print(query.all())
     return query.all()
 
 @router.post("/helpline/resolve", response_model=HelplineResolveResponse)
