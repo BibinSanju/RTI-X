@@ -31,7 +31,7 @@ https://t4g.gdgcbe.com/milestones
 
 ## Sunday
 
-- [x] 6:00 AM — feature freeze. Only fixes, polish and the demo from here <!--m:sun-freeze-->
+- [] 6:00 AM — feature freeze. Only fixes, polish and the demo from here <!--m:sun-freeze-->
 - [ ] 9:00 AM — deployed somewhere reachable, or a laptop build that survives a restart <!--m:sun-deploy-->
 - [ ] 9:00 AM — demo script written and run once with a timer <!--m:sun-script-->
 - [ ] 11:00 AM — run twice more, once by someone who did not build that part <!--m:sun-rehearse-->
