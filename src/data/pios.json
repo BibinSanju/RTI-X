@@ -1,0 +1,222 @@
+[
+  {
+    "id": "pio_ccmc_hq",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "Headquarters",
+    "department_category": "GENERAL",
+    "pio_designation": "The Public Information Officer, O/o The Commissioner",
+    "office_address": "Corporation Office, Raja Street, Town Hall, Coimbatore, Tamil Nadu",
+    "pincode": "641001",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_engineering",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "City Wide",
+    "department_category": "ROADS_AND_SEWAGE",
+    "pio_designation": "Mr. Arasu Selvaraj (City Engineer) & Public Information Officer",
+    "office_address": "Engineering Section, Corporation Office, Raja Street, Town Hall, Coimbatore, Tamil Nadu",
+    "pincode": "641001",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_central_zone",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "Central Zone",
+    "department_category": "GENERAL",
+    "pio_designation": "The Assistant Commissioner (Central Zone) & PIO",
+    "office_address": "Arts College Road, Race Course, Coimbatore, Tamil Nadu",
+    "pincode": "641018",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_east_zone",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "East Zone",
+    "department_category": "GENERAL",
+    "pio_designation": "The Assistant Commissioner (East Zone) & PIO",
+    "office_address": "Trichy Road, Singanallur, Coimbatore, Tamil Nadu",
+    "pincode": "641005",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_west_zone",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "West Zone",
+    "department_category": "GENERAL",
+    "pio_designation": "The Assistant Commissioner (West Zone) & PIO",
+    "office_address": "Ramachandra Road, R.S. Puram, Coimbatore, Tamil Nadu",
+    "pincode": "641002",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_north_zone",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "North Zone",
+    "department_category": "GENERAL",
+    "pio_designation": "The Assistant Commissioner (North Zone) & PIO",
+    "office_address": "R.T.O Office Road, Gandhipuram, Coimbatore, Tamil Nadu",
+    "pincode": "641012",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_south_zone",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "South Zone",
+    "department_category": "GENERAL",
+    "pio_designation": "The Assistant Commissioner (South Zone) & PIO",
+    "office_address": "Palakkad Main Road, Kuniyamuthur, Coimbatore, Tamil Nadu",
+    "pincode": "641008",
+    "online_supported": false
+  },
+  {
+    "id": "pio_ccmc_town_planning",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "City Wide",
+    "department_category": "BUILDING_APPROVAL",
+    "pio_designation": "The Public Information Officer / Town Planning Officer",
+    "office_address": "Town Planning Section, Corporation Office, Raja Street, Town Hall, Coimbatore, Tamil Nadu",
+    "pincode": "641001",
+    "online_supported": false
+  },
+  {
+    "id": "pio_collectorate_revenue",
+    "district": "Coimbatore",
+    "local_body": "District Collectorate",
+    "zone_or_ward": "District Wide",
+    "department_category": "REVENUE_AND_TAX",
+    "pio_designation": "The Public Information Officer / District Revenue Officer (DRO)",
+    "office_address": "Collectorate Building, State Bank Road, Gopalapuram, Coimbatore, Tamil Nadu",
+    "pincode": "641018",
+    "online_supported": true
+  },
+  {
+    "id": "pio_tangedco_cbe",
+    "district": "Coimbatore",
+    "local_body": "TANGEDCO (Electricity Board)",
+    "zone_or_ward": "Coimbatore Metro",
+    "department_category": "ELECTRICITY",
+    "pio_designation": "The Public Information Officer / Superintendent Engineer",
+    "office_address": "TANGEDCO Metro Circle Office, Tatabad, Coimbatore, Tamil Nadu",
+    "pincode": "641012",
+    "online_supported": true
+  },
+  {
+    "id": "pio_twad_cbe",
+    "district": "Coimbatore",
+    "local_body": "TWAD Board",
+    "zone_or_ward": "Coimbatore Region",
+    "department_category": "WATER_SUPPLY",
+    "pio_designation": "The Public Information Officer / Chief Engineer",
+    "office_address": "TWAD Board, 30, Bharathi Park Road, Coimbatore, Tamil Nadu",
+    "pincode": "641043",
+    "online_supported": false
+  },
+  {
+    "id": "pio_police_cbe",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Police",
+    "zone_or_ward": "City Central",
+    "department_category": "GENERAL",
+    "pio_designation": "The Public Information Officer, O/o Commissioner of Police",
+    "office_address": "Commissioner of Police Office, Coimbatore Central, Coimbatore, Tamil Nadu",
+    "pincode": "641018",
+    "online_supported": true
+  },
+  {
+    "id": "pio_edu_ceo_cbe",
+    "district": "Coimbatore",
+    "local_body": "School Education Department",
+    "zone_or_ward": "District Wide",
+    "department_category": "EDUCATION",
+    "pio_designation": "The Public Information Officer / Chief Educational Officer",
+    "office_address": "500, Chief Educational Office, Raja Street, Town Hall, Coimbatore, Tamil Nadu",
+    "pincode": "641001",
+    "online_supported": true
+  },
+  {
+    "id": "pio_rto_north_38",
+    "district": "Coimbatore",
+    "local_body": "Regional Transport Office (TN-38)",
+    "zone_or_ward": "Coimbatore North",
+    "department_category": "TRANSPORT",
+    "pio_designation": "The Public Information Officer / Regional Transport Officer",
+    "office_address": "337, Vellakinar Road, Near CTC Colony, Thudiyalur, Coimbatore, Tamil Nadu",
+    "pincode": "641034",
+    "online_supported": true
+  },
+  {
+    "id": "pio_rto_south_37",
+    "district": "Coimbatore",
+    "local_body": "Regional Transport Office (TN-37)",
+    "zone_or_ward": "Coimbatore South",
+    "department_category": "TRANSPORT",
+    "pio_designation": "The Public Information Officer / Regional Transport Officer",
+    "office_address": "100, HMS Kalyana Mahal, Pudur Road, Peelamedu, Coimbatore, Tamil Nadu",
+    "pincode": "641004",
+    "online_supported": true
+  },
+  {
+    "id": "pio_rto_central_66",
+    "district": "Coimbatore",
+    "local_body": "Regional Transport Office (TN-66)",
+    "zone_or_ward": "Coimbatore Central",
+    "department_category": "TRANSPORT",
+    "pio_designation": "The Public Information Officer / Regional Transport Officer",
+    "office_address": "Dr. Balasundaram Road, Coimbatore, Tamil Nadu",
+    "pincode": "641018",
+    "online_supported": true
+  },
+  {
+    "id": "pio_civil_supplies_cbe",
+    "district": "Coimbatore",
+    "local_body": "Civil Supplies and Consumer Protection",
+    "zone_or_ward": "District Wide",
+    "department_category": "CIVIL_SUPPLIES",
+    "pio_designation": "The Public Information Officer / District Supply Officer",
+    "office_address": "District Supply Office, Collectorate Complex, Coimbatore, Tamil Nadu",
+    "pincode": "641018",
+    "online_supported": true
+  },
+  {
+    "id": "pio_healthcare_cmch",
+    "district": "Coimbatore",
+    "local_body": "Directorate of Medical Education",
+    "zone_or_ward": "Coimbatore Medical College Hospital",
+    "department_category": "HEALTHCARE",
+    "pio_designation": "The Public Information Officer, O/o The Dean",
+    "office_address": "Coimbatore Medical College Hospital (CMCH), Trichy Road, Coimbatore, Tamil Nadu",
+    "pincode": "641018",
+    "online_supported": false
+  },
+  {
+    "id": "pio_sub_registrar_gandhipuram",
+    "district": "Coimbatore",
+    "local_body": "Registration Department",
+    "zone_or_ward": "Gandhipuram",
+    "department_category": "REGISTRATION",
+    "pio_designation": "The Public Information Officer / Sub Registrar",
+    "office_address": "Gandhipuram Sub Registrar Office, 3/2, Y.P. Complex, Sanganur Main Road, Rathinapuri Post, Coimbatore, Tamil Nadu",
+    "pincode": "641027",
+    "online_supported": true
+  },
+  {
+    "id": "pio_ccmc_appellate",
+    "district": "Coimbatore",
+    "local_body": "Coimbatore City Municipal Corporation",
+    "zone_or_ward": "Appellate Authority",
+    "department_category": "APPEAL",
+    "pio_designation": "Dr. M. Sharmila (Deputy Commissioner) & Appellate Authority",
+    "office_address": "Corporation Office, Raja Street, Town Hall, Coimbatore, Tamil Nadu",
+    "pincode": "641001",
+    "online_supported": false
+  }
+]
