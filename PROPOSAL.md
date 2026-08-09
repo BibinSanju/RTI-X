@@ -8,9 +8,10 @@
   - Bibin Sanju S (@BibinSanju)
   - Deepan Kumar E S (@deepankumar837)
   - Dharshini S (@dharshhinii)
+
 ## 1. Problem
 
-The Right to Information (RTI) Act  empowers citizens to request information from public authorities. However, many people struggle to use it because the process requires legal knowledge and proper document formatting. Citizens often ask questions such as *"Why is my road broken?"* instead of requesting official records, which can lead to rejection under Section 2(f) of the RTI Act. Many applicants also find it difficult to identify the correct Public Information Officer (PIO), especially when legal terminology and language barriers are involved. As a result, citizens lose time, confidence, and access to information they are legally entitled to receive.
+The Right to Information (RTI) Act empowers citizens to request information from public authorities. However, many people struggle to use it because the process requires legal knowledge and proper document formatting. Citizens often ask questions such as *"Why is my road broken?"* instead of requesting official records, which can lead to rejection under Section 2(f) of the RTI Act. Many applicants also find it difficult to identify the correct Public Information Officer (PIO), especially when legal terminology and language barriers are involved. As a result, citizens lose time, confidence, and access to information they are legally entitled to receive.
 
 This is a well-documented problem. Reports by **Satark Nagrik Sangathan (SNS)** and the **Commonwealth Human Rights Initiative (CHRI)** highlight common challenges such as incorrect drafting, difficulty identifying the appropriate Public Information Officer (PIO), and delays in the RTI process. Additionally, the Supreme Court's judgment in **Khanapuram Gandaiah v. Administrative Officer (2010)** clarified that RTI applications must request existing records rather than explanations or opinions under Section 2(f). These findings show that many valid RTI requests fail because citizens lack the legal knowledge required to draft them correctly.
 
@@ -26,39 +27,44 @@ Our primary user is **Mr. Murugan**, a 52-year-old tea shop owner in Gandhipuram
 
 ## 3. Proposed Solution
 
-**RTI-GPT** is an AI-assisted RTI drafting tool that helps citizens create legally structured RTI applications in a few simple steps.
+**RTI-GPT** is a civic grievance and AI-assisted RTI routing platform. Instead of instantly filing a legal document, we follow a deterministic escalation ladder to solve the citizen's problem faster:
 
-Users can speak or type their issue in Tamil or English. The system then:
-
-- **Processes the Input:** Uses **Groq Whisper** to transcribe or translate spoken input into text.
-- **Enforces Legal Compliance:** Uses **Google Gemini 1.5 Flash** to extract key details and validate them against Section 2(f) of the RTI Act. If a user asks for an opinion (e.g., *"Why is the road broken?"*), the AI automatically converts it into a request for official records (e.g., *"Provide the latest road maintenance work order."*).
-- **Maps the Authority:** Suggests the appropriate Public Information Officer (PIO) based on the user's issue.
-- **Generates the Application:** Produces a print-ready RTI PDF that the citizen can review, print, and submit.
-
-Our MVP focuses on solving the first and most important barrier—helping citizens prepare a legally compliant RTI application quickly and confidently.
+- **AI Triage:** The user speaks or types their issue in Tamil/English. Gemini classifies the issue (e.g., Road Infrastructure) and extracts their specific Ward (1-100).
+- **Immediate Local Routing:** The app instantly maps the Ward to the specific Assistant Engineer's (AE) verified phone number. The citizen is encouraged to call them directly.
+- **SLA Tracking Magic Links:** The citizen receives a personalized tracking link. If the AE doesn't resolve the issue within the SLA, the app escalates it to the Zonal Executive Engineer (EE).
+- **The RTI Fallback:** If local governance fails, the AI automatically drafts a strictly legally compliant Section 2(f) RTI application and utilizes a "Smart Clipboard" routing mechanism to direct the user to submit it on the official government portal.
+- **Resilient Data Ingestion:** To ensure our officer contacts never go out of date, a backend scheduled scraper intelligently normalizes messy government HTML directories using LLMs and updates our local database automatically.
 
 ---
 
 ## 4. High-Level Architecture
 
 ```text
-Tamil/English Voice or Text Input
-        │
-        ▼
-Speech-to-Text (Groq Whisper API)
-        │
-        ▼
-Google Gemini 1.5 Flash
-(Information Extraction + Section 2(f) Validation)
-        │
-        ▼
-Local PIO Mapping Logic
-        │
-        ▼
-PDF Generator / Native Print CSS
-        │
-        ▼
-Downloadable RTI PDF
+       Tamil/English Voice or Text Input
+                     │
+                     ▼
+          Speech-to-Text (Groq Whisper)
+                     │
+                     ▼
+    Google Gemini (Classification & Extraction)
+                     │
+                     ▼
+  Deterministic Routing (Local Ward JSON Database) 
+                     │
+     ┌───────────────┴───────────────┐
+     ▼                               ▼
+[ Primary Escalation ]      [ Secondary Escalation ]
+Direct call to Ward AE      Magic Link Status Tracker
+     │                               │
+     └───────────────────────────────┘
+                     │
+           (If SLA Deadline Missed)
+                     ▼
+      [ Legal Escalation (RTI Generator) ]
+      Gemini formats Section 2(f) Draft
+                     │
+                     ▼
+   [ Smart Clipboard & Route to Government Portal ]
 ```
 
 ---
@@ -69,29 +75,33 @@ Downloadable RTI PDF
 - Next.js 14 (App Router)
 - Tailwind CSS
 - Lucide Icons
+- React-hot-toast (Clipboard/Notifications)
 
-### AI
-- Google Gemini 1.5 Flash API
-- Groq API (Whisper-large-v3)
+### Backend & AI
+- FastAPI (Python)
+- Google Gemini 1.5 Flash API (Classification & RTI Generation)
+- Groq API (Whisper-large-v3 for Audio + Mixtral for Scraper Normalization)
 
-### Audio Processing
-- Native MediaRecorder API
-- react-audio-voice-recorder
-
-### Database
-- Local JSON Directory (MVP)
-- Supabase (PostgreSQL) *(Post-MVP)*
-
-### Document Generation
-- react-to-print
+### Data Layer & Scraping
+- Deterministic Local JSON (`emergencyContacts.json`)
+- Python BeautifulSoup + Groq LLM (Smart Normalization Scraper)
+- GitHub Actions (Scheduled Cron Jobs for Data Ingestion)
 
 ### Deployment
-- Vercel
+- Vercel (Frontend)
+- Render / GitHub Actions (Backend/Scraper)
+
+---
+
 ## 6. Milestones to hackathon day
 _A rough plan from now to Aug 8–9._
 
-- [ ] …
-- [ ] …
+- [x] Integrate Groq Whisper for Tamil/English voice input.
+- [x] Build Next.js UI with "Public Service" clean design aesthetic.
+- [x] Implement Gemini classifier for civic issues and Ward extraction.
+- [x] Map CCMC Wards(zone level) to specific Assistant Engineers and Zonal EEs.
+- [x] Build the SLA Status Tracker (Magic Link) UI workflow.
+- [x] Implement the LLM Hybrid Web Scraper for automated data updates.
+- [ ] Implement the Intimation Modal (Contractor discrepancies).
+- [ ] Implement the final "Smart Clipboard" RTI generation and routing link.
 
-## 7. Open questions / help needed
-_Anything you're unsure about or want mentor input on._
