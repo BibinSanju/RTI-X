@@ -1,0 +1,105 @@
+{
+  "totalCount": 35,
+  "categories": [
+    "CENTRAL_MINISTRY",
+    "STATE_SECRETARIAT_TN",
+    "MUNICIPAL_CORPORATION",
+    "MUNICIPALITY",
+    "STATE_UTILITY",
+    "DISTRICT_ADMINISTRATION"
+  ],
+  "authorities": [
+    {
+      "id": "pa-cbe-ccmc",
+      "name": "Coimbatore City Municipal Corporation (CCMC)",
+      "parentBody": "Department of Municipal Administration & Water Supply (MAWS), Govt of TN",
+      "level": "LOCAL_MUNICIPAL_PHYSICAL",
+      "pincodes": ["641001", "641002", "641003", "641004", "641005", "641012", "641018"],
+      "submissionMode": "PHYSICAL_SPEED_POST",
+      "courtFeeStampRequired": true,
+      "feeAmount": 10,
+      "pioDesignation": "Public Information Officer & Executive Engineer",
+      "officeAddress": "CCMC Main Office, Town Hall, Coimbatore - 641001, Tamil Nadu",
+      "searchKeywords": ["road", "sewage", "garbage", "street light", "building plan", "tax", "ccmc", "coimbatore corporation"]
+    },
+    {
+      "id": "pa-madukkarai-muni",
+      "name": "Madukkarai Municipality",
+      "parentBody": "Directorate of Municipal Administration, Govt of TN",
+      "level": "MUNICIPALITY",
+      "pincodes": ["641105"],
+      "submissionMode": "PHYSICAL_SPEED_POST",
+      "courtFeeStampRequired": true,
+      "feeAmount": 10,
+      "pioDesignation": "Public Information Officer & Municipal Commissioner",
+      "officeAddress": "Madukkarai Municipality, Palakkad Main Road, Madukkarai, Coimbatore - 641105, Tamil Nadu",
+      "searchKeywords": ["madukkarai", "bazaar street", "market road", "kadai veedhi", "drainage", "municipality"]
+    },
+    {
+      "id": "pa-tn-pwd-highways",
+      "name": "Highways & Minor Ports Department, Govt of Tamil Nadu",
+      "parentBody": "Government of Tamil Nadu",
+      "level": "STATE_SECRETARIAT_TN",
+      "pincodes": ["641018", "600009"],
+      "submissionMode": "RTI_ONLINE_TN_PORTAL_OR_POST",
+      "courtFeeStampRequired": true,
+      "feeAmount": 10,
+      "pioDesignation": "Public Information Officer & Superintending Engineer (Highways)",
+      "officeAddress": "Highways Department Division Office, Trichy Road, Coimbatore - 641018, Tamil Nadu",
+      "searchKeywords": ["state highway", "bypass road", "flyover", "trichy road", "highways", "pwd road"]
+    },
+    {
+      "id": "pa-nhai-central",
+      "name": "National Highways Authority of India (NHAI)",
+      "parentBody": "Ministry of Road Transport & Highways, Govt of India",
+      "level": "CENTRAL_MINISTRY",
+      "pincodes": ["641004", "110075"],
+      "submissionMode": "RTI_ONLINE_CENTRAL_PORTAL",
+      "portalUrl": "https://rtionline.gov.in",
+      "courtFeeStampRequired": false,
+      "feeAmount": 10,
+      "pioDesignation": "Central Public Information Officer & Project Director (NHAI)",
+      "officeAddress": "NHAI Project Implementation Unit, Extension Office, Coimbatore - 641004, Tamil Nadu",
+      "searchKeywords": ["national highway", "nhai", "toll plaza", "l&t bypass", "avanshi road nh", "central highway"]
+    },
+    {
+      "id": "pa-twad-board",
+      "name": "Tamil Nadu Water Supply and Drainage Board (TWAD)",
+      "parentBody": "Department of Municipal Administration & Water Supply (MAWS), Govt of TN",
+      "level": "STATE_UTILITY",
+      "pincodes": ["641018", "600005"],
+      "submissionMode": "PHYSICAL_SPEED_POST",
+      "courtFeeStampRequired": true,
+      "feeAmount": 10,
+      "pioDesignation": "Public Information Officer & Executive Engineer (TWAD Board)",
+      "officeAddress": "TWAD Board Division Office, Race Course Road, Coimbatore - 641018, Tamil Nadu",
+      "searchKeywords": ["water supply", "drinking water", "twad", "siruvani water", "pipeline work", "drainage board"]
+    },
+    {
+      "id": "pa-tangedco",
+      "name": "Tamil Nadu Generation and Distribution Corporation (TANGEDCO / TNEB)",
+      "parentBody": "Energy Department, Govt of Tamil Nadu",
+      "level": "STATE_UTILITY",
+      "pincodes": ["641012", "600002"],
+      "submissionMode": "PHYSICAL_SPEED_POST",
+      "courtFeeStampRequired": true,
+      "feeAmount": 10,
+      "pioDesignation": "Public Information Officer & Superintending Engineer (Metro Circle)",
+      "officeAddress": "TANGEDCO Metro Circle Office, Tatabad, Coimbatore - 641012, Tamil Nadu",
+      "searchKeywords": ["electricity", "power cut", "transformer", "tneb", "tangedco", "electric pole", "meter"]
+    },
+    {
+      "id": "pa-cbe-collectorate",
+      "name": "District Collectorate, Coimbatore",
+      "parentBody": "Revenue & Disaster Management Department, Govt of TN",
+      "level": "DISTRICT_ADMINISTRATION",
+      "pincodes": ["641018"],
+      "submissionMode": "PHYSICAL_SPEED_POST",
+      "courtFeeStampRequired": true,
+      "feeAmount": 10,
+      "pioDesignation": "Public Information Officer & Personal Assistant (General) to District Collector",
+      "officeAddress": "Coimbatore District Collectorate Office, State Bank Road, Coimbatore - 641018, Tamil Nadu",
+      "searchKeywords": ["district collector", "patta", "chitta", "land revenue", "encroachment", "disaster management"]
+    }
+  ]
+}
