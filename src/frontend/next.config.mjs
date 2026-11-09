@@ -7,10 +7,12 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   async rewrites() {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://rti-x.onrender.com';
     return [
       {
-        source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL || 'https://rti-x.onrender.com'}/api/:path*`,
+        // Proxy external FastAPI endpoints while keeping Next.js native routes (generate-pdf, transcribe) local
+        source: '/api/:path((?!generate-pdf|transcribe).*)',
+        destination: `${backendUrl}/api/:path*`,
       },
     ];
   },

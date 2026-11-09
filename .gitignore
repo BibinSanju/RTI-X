@@ -12,3 +12,6 @@ __pycache__/
 .venv/
 *.tsbuildinfo
 .env.local.example
+*.db
+*.sqlite
+*.sqlite3

@@ -26,7 +26,7 @@ export default async function UpdateStatusPage({ params }: PageProps) {
   let initialStatus: ComplaintStatus = 'PENDING_CALL_CONFIRMATION';
 
   try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || 'https://rti-x.onrender.com';
     const res = await fetch(`${API_URL}/api/complaints/${id}`, { cache: 'no-store' });
     
     if (res.ok) {

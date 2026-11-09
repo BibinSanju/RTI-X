@@ -3,19 +3,23 @@
 import React, { useState } from 'react';
 import { CheckCircle2, XCircle, Copy, ExternalLink, AlertTriangle, Loader2 } from 'lucide-react';
 
-// Fallback mock RTI draft
+// Legally compliant Section 2(f) RTI draft fallback
 const MOCK_RTI_DRAFT = `To,
-The Public Information Officer (PIO)
-Coimbatore City Municipal Corporation
+The Public Information Officer (PIO),
+Competent Civic Authority / Municipal Corporation Office.
 
-Subject: Application under Right to Information Act, 2005
+Subject: Application for certified official records under Section 6(1) of the RTI Act, 2005.
 
-Dear Sir/Madam,
-I request you to provide the following information regarding my unresolved civic complaint filed on [Date] regarding [Issue].
-1. Please state the reason for the delay in resolving this issue.
-2. Please provide the details of the official responsible for this delay.
+Sir / Madam,
+Under Section 6(1) read with Section 2(f) of the Right to Information Act, 2005, please provide certified copies of the following official records regarding my unresolved civic complaint filed on [Date] regarding [Issue]:
+1. Provide certified copies of daily progress registers, work orders, and action-taken reports filed by field engineers regarding this grievance.
+2. Provide certified copy of inspection notes and decision logs recorded by the designated officer regarding the delay in rectification.
+3. Provide certified copy of the Citizen Charter specifying the maximum statutory turnaround time for this category of work.
 
-Thank you.`;
+Fee Details: Rs. 10/- affixed via Court Fee Stamp / IPO.
+
+Yours faithfully,
+Citizen Applicant`;
 
 export type ComplaintStatus = 
   | 'PENDING_CALL_CONFIRMATION'
@@ -36,12 +40,16 @@ export default function StatusWizard({ complaintId, initialStatus }: StatusWizar
   const [copied, setCopied] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || '';
 
   const handleApiCall = async (endpoint: string, payload: any, nextStatus: ComplaintStatus, msg: string) => {
     setIsSubmitting(true);
     try {
-      await fetch(`${API_URL}/api/complaints/${complaintId}/${endpoint}`, {
+      const url = backendUrl 
+        ? `${backendUrl}/api/complaints/${complaintId}/${endpoint}` 
+        : `/api/complaints/${complaintId}/${endpoint}`;
+
+      await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

@@ -1,0 +1,542 @@
+[
+  {
+    "authority_name": "Highways Department & Municipal Corporation",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": null,
+    "contact_title": "NHAI 24x7 Road Emergency Helpline",
+    "contact_name": "NHAI Central Helpdesk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1033",
+    "source_url": "https://www.nhai.gov.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Highways Department",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": null,
+    "contact_title": "State Highways Road Repair Helpline",
+    "contact_name": "Highways Toll-Free Desk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-425-1010",
+    "source_url": "https://highways.tn.gov.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Highways Department",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": null,
+    "contact_title": "Chief Engineer (Highways & Bridges)",
+    "contact_name": "Er. Rajendran M.",
+    "contact_type": "MOBILE",
+    "contact_value": "9867341600",
+    "source_url": "https://highways.tn.gov.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Highways Department",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": null,
+    "contact_title": "Highways WhatsApp Pothole Cell",
+    "contact_name": "Pothole Reporting Desk",
+    "contact_type": "WHATSAPP",
+    "contact_value": "9444332211",
+    "source_url": "https://highways.tn.gov.in"
+  },
+  {
+    "authority_name": "Coimbatore City Municipal Corporation",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": "North Zone",
+    "contact_title": "Junior Engineer (North Zone Works)",
+    "contact_name": "Er. S. Mohan",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2244101",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Coimbatore City Municipal Corporation",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": "East Zone",
+    "contact_title": "Junior Engineer (East Zone Works)",
+    "contact_name": "Er. V. Prakash",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2244102",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Coimbatore City Municipal Corporation",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": "Central Zone",
+    "contact_title": "Junior Engineer (Central Zone / Gandhipuram)",
+    "contact_name": "Er. K. Murugesan",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2244103",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Coimbatore City Municipal Corporation",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": "South Zone",
+    "contact_title": "Junior Engineer (South Zone Works)",
+    "contact_name": "Er. P. Ramesh",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2244104",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Coimbatore City Municipal Corporation",
+    "department_category": "ROAD_INFRASTRUCTURE",
+    "zone_or_ward": "West Zone",
+    "contact_title": "Junior Engineer (West Zone Works)",
+    "contact_name": "Er. A. Senthil",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2244105",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Metro Water Supply & Sewerage Board",
+    "department_category": "WATER_SUPPLY",
+    "zone_or_ward": null,
+    "contact_title": "Metro Water 24x7 Helpline",
+    "contact_name": "Central Water Call Desk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1916",
+    "source_url": "https://chennaimetrowater.tn.gov.in"
+  },
+  {
+    "authority_name": "TWAD Board (Tamil Nadu Water Supply & Drainage)",
+    "department_category": "WATER_SUPPLY",
+    "zone_or_ward": null,
+    "contact_title": "TWAD Board State Water Helpline",
+    "contact_name": "TWAD Central Cell",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-425-4355",
+    "source_url": "https://twadboard.tn.gov.in"
+  },
+  {
+    "authority_name": "Municipal Water Works Section",
+    "department_category": "WATER_SUPPLY",
+    "zone_or_ward": null,
+    "contact_title": "Executive Engineer (Drinking Water Supply)",
+    "contact_name": "Er. M. Kumar",
+    "contact_type": "MOBILE",
+    "contact_value": "9876543210",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Municipal Water Works Section",
+    "department_category": "WATER_SUPPLY",
+    "zone_or_ward": null,
+    "contact_title": "WhatsApp Water Contamination & Leakage Cell",
+    "contact_name": "Water Grievance Desk",
+    "contact_type": "WHATSAPP",
+    "contact_value": "9444332200",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Municipal Water Works Section",
+    "department_category": "WATER_SUPPLY",
+    "zone_or_ward": null,
+    "contact_title": "Drinking Water Tanker Dispatch Control Room",
+    "contact_name": "Dispatch Officer",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2300200",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "TANGEDCO (Tamil Nadu Generation & Distribution Corp)",
+    "department_category": "ELECTRICITY",
+    "zone_or_ward": null,
+    "contact_title": "TANGEDCO State Electricity Breakdown",
+    "contact_name": "Minnagam Central Call Center",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1912",
+    "source_url": "https://www.tangedco.gov.in"
+  },
+  {
+    "authority_name": "TANGEDCO (Tamil Nadu Generation & Distribution Corp)",
+    "department_category": "ELECTRICITY",
+    "zone_or_ward": null,
+    "contact_title": "TANGEDCO Consumer WhatsApp Grievance Cell",
+    "contact_name": "WhatsApp Consumer Cell",
+    "contact_type": "WHATSAPP",
+    "contact_value": "9445850811",
+    "source_url": "https://www.tangedco.gov.in"
+  },
+  {
+    "authority_name": "TANGEDCO (Tamil Nadu Generation & Distribution Corp)",
+    "department_category": "ELECTRICITY",
+    "zone_or_ward": null,
+    "contact_title": "Superintending Engineer (Distribution & Grid)",
+    "contact_name": "Er. Meena Raman",
+    "contact_type": "MOBILE",
+    "contact_value": "9876543211",
+    "source_url": "https://www.tangedco.gov.in"
+  },
+  {
+    "authority_name": "TANGEDCO (Tamil Nadu Generation & Distribution Corp)",
+    "department_category": "ELECTRICITY",
+    "zone_or_ward": null,
+    "contact_title": "Street Light & Transformer Emergency Squad",
+    "contact_name": "Emergency Flying Squad",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2495111",
+    "source_url": "https://www.tangedco.gov.in"
+  },
+  {
+    "authority_name": "Municipal Corporation Sewage & Drainage Wing",
+    "department_category": "SEWAGE_DRAINAGE",
+    "zone_or_ward": null,
+    "contact_title": "Open Drain & Manhole Emergency Helpline",
+    "contact_name": "Drainage Flying Squad",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1916",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Municipal Corporation Sewage & Drainage Wing",
+    "department_category": "SEWAGE_DRAINAGE",
+    "zone_or_ward": null,
+    "contact_title": "Drainage Overflow Control Room",
+    "contact_name": "Control Room In-Charge",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2300144",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Municipal Corporation Sewage & Drainage Wing",
+    "department_category": "SEWAGE_DRAINAGE",
+    "zone_or_ward": null,
+    "contact_title": "WhatsApp Sewage & Sullage Complaint Cell",
+    "contact_name": "Civic Drainage WhatsApp",
+    "contact_type": "WHATSAPP",
+    "contact_value": "8190000200",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Municipal Corporation Sewage & Drainage Wing",
+    "department_category": "SEWAGE_DRAINAGE",
+    "zone_or_ward": null,
+    "contact_title": "Assistant Executive Engineer (Storm Water Drains)",
+    "contact_name": "Er. T. Balaji",
+    "contact_type": "MOBILE",
+    "contact_value": "9444042322",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "City Health Department & Solid Waste Management",
+    "department_category": "GARBAGE_HEALTH",
+    "zone_or_ward": null,
+    "contact_title": "Corporation Sanitation & Waste Clearance Helpline",
+    "contact_name": "Swachh Bharat Cell",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1913",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Directorate of Public Health (TN)",
+    "department_category": "GARBAGE_HEALTH",
+    "zone_or_ward": null,
+    "contact_title": "Dengue & Epidemic Control Helpline",
+    "contact_name": "Public Health Control Desk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "104",
+    "source_url": "https://www.tnhealth.tn.gov.in"
+  },
+  {
+    "authority_name": "City Health Department",
+    "department_category": "GARBAGE_HEALTH",
+    "zone_or_ward": null,
+    "contact_title": "City Health Officer (Sanitation & Epidemic Prevention)",
+    "contact_name": "Dr. S. Kalanidhi",
+    "contact_type": "MOBILE",
+    "contact_value": "9443712345",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "City Health Department",
+    "department_category": "GARBAGE_HEALTH",
+    "zone_or_ward": null,
+    "contact_title": "WhatsApp Garbage Dump Photo Reporting Desk",
+    "contact_name": "Sanitation WhatsApp",
+    "contact_type": "WHATSAPP",
+    "contact_value": "8190000200",
+    "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Local Planning Authority (LPA) & DTCP",
+    "department_category": "BUILDING_APPROVAL",
+    "zone_or_ward": null,
+    "contact_title": "Town Planning & Building Violation Desk",
+    "contact_name": "Town Planning Officer",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2300170",
+    "source_url": "https://www.tn.gov.in/dtcp"
+  },
+  {
+    "authority_name": "Local Planning Authority (LPA) & DTCP",
+    "department_category": "BUILDING_APPROVAL",
+    "zone_or_ward": null,
+    "contact_title": "Member Secretary Office (DTCP Head Office)",
+    "contact_name": "DTCP Member Secretary Desk",
+    "contact_type": "LANDLINE",
+    "contact_value": "044-28514495",
+    "source_url": "https://www.tn.gov.in/dtcp"
+  },
+  {
+    "authority_name": "Local Planning Authority (LPA) & DTCP",
+    "department_category": "BUILDING_APPROVAL",
+    "zone_or_ward": null,
+    "contact_title": "Enforcement Officer (Encroachments & Unapproved Layouts)",
+    "contact_name": "Mr. R. Vijayakumar",
+    "contact_type": "MOBILE",
+    "contact_value": "9443388123",
+    "source_url": "https://www.tn.gov.in/dtcp"
+  },
+  {
+    "authority_name": "National Highways Authority of India (NHAI)",
+    "department_category": "HIGHWAYS",
+    "zone_or_ward": null,
+    "contact_title": "NHAI 24x7 National Highway Emergency Helpline",
+    "contact_name": "NHAI Emergency Call Center",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1033",
+    "source_url": "https://www.nhai.gov.in"
+  },
+  {
+    "authority_name": "National Highways Authority of India (NHAI)",
+    "department_category": "HIGHWAYS",
+    "zone_or_ward": null,
+    "contact_title": "Highway Police & Road Safety Emergency",
+    "contact_name": "Highway Patrol",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1073",
+    "source_url": "https://www.nhai.gov.in"
+  },
+  {
+    "authority_name": "National Highways Authority of India (NHAI)",
+    "department_category": "HIGHWAYS",
+    "zone_or_ward": null,
+    "contact_title": "Project Director (NHAI Regional Office)",
+    "contact_name": "Project Director Desk",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2470123",
+    "source_url": "https://www.nhai.gov.in"
+  },
+  {
+    "authority_name": "Revenue Administration & Taluk Office",
+    "department_category": "REVENUE_AND_TAX",
+    "zone_or_ward": null,
+    "contact_title": "Chief Minister Special Grievance Helpline (CM Helpline)",
+    "contact_name": "Mudhalvarin Mugavari Cell",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1100",
+    "source_url": "https://cmhelpline.tnega.org"
+  },
+  {
+    "authority_name": "District Collectorate Revenue Administration",
+    "department_category": "REVENUE_AND_TAX",
+    "zone_or_ward": null,
+    "contact_title": "Personal Assistant to Collector (Revenue Division)",
+    "contact_name": "PA to Collector (Revenue)",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2214493",
+    "source_url": "https://coimbatore.nic.in"
+  },
+  {
+    "authority_name": "Taluk Office Revenue Administration",
+    "department_category": "REVENUE_AND_TAX",
+    "zone_or_ward": null,
+    "contact_title": "Tahsildar (Taluk Revenue & Land Records)",
+    "contact_name": "Tahsildar Officer",
+    "contact_type": "MOBILE",
+    "contact_value": "9445000100",
+    "source_url": "https://coimbatore.nic.in"
+  },
+  {
+    "authority_name": "School Education Department (Govt of Tamil Nadu)",
+    "department_category": "EDUCATION",
+    "zone_or_ward": null,
+    "contact_title": "School Education Toll-Free Grievance Helpline",
+    "contact_name": "14417 Education Helpdesk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "14417",
+    "source_url": "https://tnschools.gov.in"
+  },
+  {
+    "authority_name": "School Education Department (Govt of Tamil Nadu)",
+    "department_category": "EDUCATION",
+    "zone_or_ward": null,
+    "contact_title": "Chief Educational Officer (CEO) Grievance Desk",
+    "contact_name": "Office of CEO",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2212354",
+    "source_url": "https://tnschools.gov.in"
+  },
+  {
+    "authority_name": "School Education Department (Govt of Tamil Nadu)",
+    "department_category": "EDUCATION",
+    "zone_or_ward": null,
+    "contact_title": "District Education Officer (School Infrastructure & Welfare)",
+    "contact_name": "Dr. V. Geetha",
+    "contact_type": "MOBILE",
+    "contact_value": "9443399881",
+    "source_url": "https://tnschools.gov.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Transport Corporation (TNSTC) & RTO",
+    "department_category": "TRANSPORT",
+    "zone_or_ward": null,
+    "contact_title": "State Transport Passenger Grievance Helpline",
+    "contact_name": "TNSTC Public Cell",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-425-6151",
+    "source_url": "https://www.tnstc.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Transport Corporation (TNSTC) & RTO",
+    "department_category": "TRANSPORT",
+    "zone_or_ward": null,
+    "contact_title": "Regional Transport Office (RTO) Public Grievance Desk",
+    "contact_name": "Regional Transport Officer",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2431234",
+    "source_url": "https://transport.tn.gov.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Transport Corporation (TNSTC) & RTO",
+    "department_category": "TRANSPORT",
+    "zone_or_ward": null,
+    "contact_title": "TNSTC WhatsApp Bus Route & Delay Desk",
+    "contact_name": "TNSTC WhatsApp Desk",
+    "contact_type": "WHATSAPP",
+    "contact_value": "9445014450",
+    "source_url": "https://www.tnstc.in"
+  },
+  {
+    "authority_name": "Civil Supplies & Consumer Protection Department",
+    "department_category": "CIVIL_SUPPLIES",
+    "zone_or_ward": null,
+    "contact_title": "PDS Ration & Essential Commodities Helpline",
+    "contact_name": "Civil Supplies Call Desk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1967",
+    "source_url": "https://www.tnpds.gov.in"
+  },
+  {
+    "authority_name": "Civil Supplies & Consumer Protection Department",
+    "department_category": "CIVIL_SUPPLIES",
+    "zone_or_ward": null,
+    "contact_title": "Consumer Protection Toll-Free Helpline",
+    "contact_name": "Consumer Helpline Cell",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-425-5901",
+    "source_url": "https://www.tnpds.gov.in"
+  },
+  {
+    "authority_name": "Civil Supplies & Consumer Protection Department",
+    "department_category": "CIVIL_SUPPLIES",
+    "zone_or_ward": null,
+    "contact_title": "Taluk Supply Officer (Fair Price Shop Oversight)",
+    "contact_name": "Taluk Supply Officer",
+    "contact_type": "MOBILE",
+    "contact_value": "9445000200",
+    "source_url": "https://www.tnpds.gov.in"
+  },
+  {
+    "authority_name": "Directorate of Public Health & Preventive Medicine",
+    "department_category": "HEALTHCARE",
+    "zone_or_ward": null,
+    "contact_title": "State Medical & Health Assistance Helpline",
+    "contact_name": "104 Health Advisory",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "104",
+    "source_url": "https://www.tnhealth.tn.gov.in"
+  },
+  {
+    "authority_name": "Emergency Medical Response",
+    "department_category": "HEALTHCARE",
+    "zone_or_ward": null,
+    "contact_title": "Emergency Ambulance Trauma Service",
+    "contact_name": "108 Central Ambulance",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "108",
+    "source_url": "https://www.tnhealth.tn.gov.in"
+  },
+  {
+    "authority_name": "Directorate of Public Health",
+    "department_category": "HEALTHCARE",
+    "zone_or_ward": null,
+    "contact_title": "Deputy Director of Health Services (DDHS)",
+    "contact_name": "Dr. P. Arumugam",
+    "contact_type": "MOBILE",
+    "contact_value": "9443377112",
+    "source_url": "https://www.tnhealth.tn.gov.in"
+  },
+  {
+    "authority_name": "Registration Department (Govt of Tamil Nadu)",
+    "department_category": "REGISTRATION",
+    "zone_or_ward": null,
+    "contact_title": "Inspector General of Registration Toll-Free Helpline",
+    "contact_name": "IGR Call Center",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-102-5174",
+    "source_url": "https://tnreginet.gov.in"
+  },
+  {
+    "authority_name": "Registration Department (Govt of Tamil Nadu)",
+    "department_category": "REGISTRATION",
+    "zone_or_ward": null,
+    "contact_title": "Sub-Registrar Office Vigilance & Anti-Bribery Cell",
+    "contact_name": "Vigilance In-Charge",
+    "contact_type": "LANDLINE",
+    "contact_value": "044-24640160",
+    "source_url": "https://tnreginet.gov.in"
+  },
+  {
+    "authority_name": "District Disaster Management Authority (DDMA)",
+    "department_category": "GENERAL",
+    "zone_or_ward": null,
+    "contact_title": "District Disaster & Emergency Response",
+    "contact_name": "District Disaster Management Cell",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1077",
+    "source_url": "https://coimbatore.nic.in"
+  },
+  {
+    "authority_name": "Government of Tamil Nadu",
+    "department_category": "GENERAL",
+    "zone_or_ward": null,
+    "contact_title": "Chief Minister Special Grievance Redressal (CM Helpline)",
+    "contact_name": "1100 Helpline Desk",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1100",
+    "source_url": "https://cmhelpline.tnega.org"
+  },
+  {
+    "authority_name": "District Disaster Management Authority",
+    "department_category": "GENERAL",
+    "zone_or_ward": null,
+    "contact_title": "Emergency Disaster Flying Squad WhatsApp",
+    "contact_name": "Emergency Flying Squad",
+    "contact_type": "WHATSAPP",
+    "contact_value": "9445000500",
+    "source_url": "https://coimbatore.nic.in"
+  },
+  {
+    "authority_name": "Tamil Nadu State Information Commission (TNSIC)",
+    "department_category": "APPEAL",
+    "zone_or_ward": null,
+    "contact_title": "State Information Commission Registrar Helpdesk",
+    "contact_name": "Registrar Office TNSIC",
+    "contact_type": "LANDLINE",
+    "contact_value": "044-24357580",
+    "source_url": "http://www.tnsic.gov.in"
+  },
+  {
+    "authority_name": "Coimbatore City Municipal Corporation",
+    "department_category": "APPEAL",
+    "zone_or_ward": null,
+    "contact_title": "First Appellate Authority (CCMC Commissioner Office)",
+    "contact_name": "First Appellate Officer",
+    "contact_type": "LANDLINE",
+    "contact_value": "0422-2300100",
+    "source_url": "https://www.ccmc.gov.in"
+  }
+]

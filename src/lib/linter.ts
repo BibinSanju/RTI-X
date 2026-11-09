@@ -36,19 +36,28 @@ export function validateAndLintRti(
     };
   });
 
-  const fullApplicantAddress = `Door No. ${rawEntities.doorNo}, ${rawEntities.streetName}, ${rawEntities.areaOrWard}, ${rawEntities.district} - ${rawEntities.pincode}`;
+  const addressParts = [
+    rawEntities.doorNo ? `Door No. ${rawEntities.doorNo}` : null,
+    rawEntities.streetName,
+    rawEntities.areaOrWard,
+    rawEntities.district,
+  ].filter(Boolean);
+  
+  const fullApplicantAddress = addressParts.length > 0 
+    ? `${addressParts.join(', ')} - ${rawEntities.pincode || ''}`
+    : "Address on record, Tamil Nadu";
 
   return {
     applicant: {
-      name: rawEntities.applicantName || "Resident",
+      name: rawEntities.applicantName || "Resident Applicant",
       address: fullApplicantAddress,
       pincode: rawEntities.pincode || "641001",
-      phone: "+91 98765 43210"
+      phone: (rawEntities as any).phone || "+91 98765 43210"
     },
     publicAuthority: pioInfo,
-    subject: `Request for certified records under Section 6(1) of the RTI Act, 2005 regarding ${rawEntities.rawGrievanceSummary} at ${rawEntities.streetName}, ${rawEntities.areaOrWard}.`,
+    subject: `Request for certified records under Section 6(1) of the RTI Act, 2005 regarding ${rawEntities.rawGrievanceSummary || 'civic issue'} at ${rawEntities.areaOrWard || 'locality'}.`,
     queries: lintedQueries,
-    periodOfInformation: "January 2024 to August 2026",
+    periodOfInformation: "Last 12 months up to current date",
     feeDetails: {
       amount: 10,
       mode: 'COURT_FEE_STAMP'

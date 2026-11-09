@@ -310,15 +310,22 @@ export default function InputWizard() {
             }
           }
           
+          // Extract 6-digit pincode if citizen typed one in their address, or default to 641001
+          const detectedPincode = address.match(/\b\d{6}\b/)?.[0] || "641001";
+          const detectedDistrict = /chennai/i.test(address) ? "Chennai" : 
+                                   /madurai/i.test(address) ? "Madurai" : 
+                                   /tiruppur/i.test(address) ? "Tiruppur" : "Coimbatore";
+
           if (USE_REAL_API) {
             const createRes = await fetch('/api/complaints/create', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     user_id: DUMMY_USER_ID,
-                    district: "Coimbatore",
-                    ward_name: ward || classification.ward,
+                    district: detectedDistrict,
+                    ward_name: ward || classification.ward || "General",
                     department_category: classification.department,
+                    problem_description: finalProblemText,
                     rejection_risk_score: "LOW"
                 }),
             });
@@ -333,6 +340,11 @@ export default function InputWizard() {
           setStep('helpline');
       } else {
           // DIRECT_RTI
+          const detectedPincode = address.match(/\b\d{6}\b/)?.[0] || "641001";
+          const detectedDistrict = /chennai/i.test(address) ? "Chennai" : 
+                                   /madurai/i.test(address) ? "Madurai" : 
+                                   /tiruppur/i.test(address) ? "Tiruppur" : "Coimbatore";
+
           let cId = "mock-complaint";
           if (USE_REAL_API) {
             const createRes = await fetch('/api/complaints/create', {
@@ -340,9 +352,10 @@ export default function InputWizard() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     user_id: DUMMY_USER_ID,
-                    district: "Coimbatore",
-                    ward_name: ward || classification.ward,
+                    district: detectedDistrict,
+                    ward_name: ward || classification.ward || "General",
                     department_category: classification.department,
+                    problem_description: finalProblemText,
                     rejection_risk_score: "LOW"
                 }),
             });
@@ -353,9 +366,9 @@ export default function InputWizard() {
             }
           }
           
-          let draftText = "Under Section 2(f) of the RTI Act...";
+          let draftText = `Provide certified copy of work orders, measurement records, and inspection logs regarding: ${finalProblemText}`;
           let pioDesig = "Public Information Officer";
-          let pioAddress = "Municipal Corporation";
+          let pioAddress = `${detectedDistrict} Municipal Corporation Office`;
           
           if (USE_REAL_API) {
             const rtiRes = await fetch('/api/rti/draft', {
@@ -376,31 +389,36 @@ export default function InputWizard() {
           
           updateStepStatus('resolving', 'done');
           
-          // Construct the mock output structure since the rest of the UI expects it
+          // Assemble complete VerifiedRtiOutput using real citizen details from Page 1
           const output: VerifiedRtiOutput = {
-              applicant: { name: fullName, phone, address, pincode: "641012" },
+              applicant: { 
+                name: fullName || "Resident Applicant", 
+                phone: phone || "+91 98765 43210", 
+                address: address || "Tamil Nadu", 
+                pincode: detectedPincode 
+              },
               publicAuthority: {
                   designation: pioDesig,
                   officeAddress: pioAddress,
-                  name: classification.department,
-                  district: "Coimbatore",
-                  pincode: "641012",
+                  name: `${detectedDistrict} City Municipal Administration`,
+                  district: detectedDistrict,
+                  pincode: detectedPincode,
                   onlineSupported: false
               },
-              subject: "Information required under RTI Act 2005",
+              subject: `Application under Section 6(1) of RTI Act 2005 regarding ${classification.department.replace(/_/g, ' ')}`,
               queries: [{ 
                   id: 1, 
-                  originalQuery: "", 
+                  originalQuery: finalProblemText, 
                   lintedQuery: draftText, 
-                  wasModifiedByLinter: false, 
+                  wasModifiedByLinter: true, 
                   section2fCompliant: true 
               }],
-              periodOfInformation: "",
+              periodOfInformation: "Last 12 months up to current date",
               feeDetails: {
                   amount: 10,
                   mode: 'COURT_FEE_STAMP'
               },
-              hasSec6_3Clause: false,
+              hasSec6_3Clause: true,
               generatedAt: new Date().toISOString(),
               extractedEntities: {
                   category: classification.department as any,

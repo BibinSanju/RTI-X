@@ -3,16 +3,26 @@ import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
-const DUMMY_USER_ID = "63093b8d-cf41-4c74-af99-9e09a4d1f616";
+const PRIMARY_USER_ID = "00000000-0000-0000-0000-000000000000";
+const SECONDARY_USER_ID = "63093b8d-cf41-4c74-af99-9e09a4d1f616";
 
 export default async function DashboardPage() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL || process.env.NEXT_PUBLIC_API_URL || 'https://rti-x.onrender.com';
   let complaints = [];
   
   try {
-    const res = await fetch(`${API_URL}/api/complaints/user/${DUMMY_USER_ID}`, { cache: 'no-store' });
+    // 1. First fetch for the primary active session user
+    let res = await fetch(`${API_URL}/api/complaints/user/${PRIMARY_USER_ID}`, { cache: 'no-store' });
     if (res.ok) {
       complaints = await res.json();
+    }
+
+    // 2. If empty, check secondary/seed user ID as fallback
+    if (!complaints || complaints.length === 0) {
+      res = await fetch(`${API_URL}/api/complaints/user/${SECONDARY_USER_ID}`, { cache: 'no-store' });
+      if (res.ok) {
+        complaints = await res.json();
+      }
     }
   } catch (err) {
     console.error("Failed to fetch dashboard data", err);
