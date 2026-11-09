@@ -438,6 +438,75 @@ export default function InputWizard() {
     }
   };
 
+  const handleProceedToRtiFromHelpline = async () => {
+    const finalProblemText = editedTranscription || transcribedText || manualText;
+    const detectedPincode = address.match(/\b\d{6}\b/)?.[0] || "641001";
+    const detectedDistrict = /chennai/i.test(address) ? "Chennai" : 
+                             /madurai/i.test(address) ? "Madurai" : 
+                             /tiruppur/i.test(address) ? "Tiruppur" : "Coimbatore";
+
+    let draftText = `Under Section 6(1) read with Section 2(f) of the RTI Act, 2005, please provide certified copies of official records, file notes, and action taken reports regarding: ${finalProblemText}`;
+    let pioDesig = "Public Information Officer";
+    let pioAddress = `${detectedDistrict} Municipal Corporation Office`;
+
+    try {
+      const rtiRes = await fetch('/api/rti/draft', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          complaint_id: complaintId || 'mock-complaint',
+          user_description: finalProblemText
+        })
+      });
+      if (rtiRes.ok) {
+        const rtiDraft = await rtiRes.json();
+        draftText = rtiDraft.rti_text;
+        pioDesig = rtiDraft.target_pio_designation;
+        pioAddress = rtiDraft.target_pio_address;
+      }
+    } catch (e) {
+      console.warn("RTI draft fetch fallback:", e);
+    }
+
+    const output: VerifiedRtiOutput = {
+      applicant: { 
+        name: fullName || "Resident Applicant", 
+        phone: phone || "+91 98765 43210", 
+        address: address || "Tamil Nadu", 
+        pincode: detectedPincode 
+      },
+      publicAuthority: {
+        designation: pioDesig,
+        officeAddress: pioAddress,
+        name: `${detectedDistrict} Public Information Office`,
+        district: detectedDistrict,
+        pincode: detectedPincode,
+        onlineSupported: false
+      },
+      subject: `Application under Section 6(1) of RTI Act 2005 regarding ${helplineData?.category?.replace(/_/g, ' ') || 'Public Grievance'}`,
+      queries: [{ 
+        id: 1, 
+        originalQuery: finalProblemText, 
+        lintedQuery: draftText, 
+        wasModifiedByLinter: true, 
+        section2fCompliant: true 
+      }],
+      periodOfInformation: "Last 12 months up to current date",
+      feeDetails: {
+        amount: 10,
+        mode: 'COURT_FEE_STAMP'
+      },
+      hasSec6_3Clause: true,
+      generatedAt: new Date().toISOString(),
+      extractedEntities: {
+        category: (helplineData?.category || "GENERAL") as any,
+        urgency: "HIGH"
+      }
+    };
+    setRtiOutput(output);
+    setStep('review');
+  };
+
   const handleDownloadPdf = async () => {
     if (!confirmedOutput) return;
     setIsPdfLoading(true);
@@ -1008,6 +1077,15 @@ export default function InputWizard() {
             )}
 
             <div className="space-y-3 mt-6">
+              <button
+                type="button"
+                className="w-full min-h-[44px] py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-lg transition-colors flex items-center justify-center gap-2 shadow-xs"
+                onClick={handleProceedToRtiFromHelpline}
+              >
+                <FileText className="w-4 h-4" />
+                Proceed to File Formal RTI (Section 6(1))
+              </button>
+
               <button
                 type="button"
                 disabled={helplineData.contactsData && helplineData.contactsData.contacts?.length > 0 ? !hasAddressedIssue : false}

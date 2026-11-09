@@ -538,5 +538,35 @@
     "contact_type": "LANDLINE",
     "contact_value": "0422-2300100",
     "source_url": "https://www.ccmc.gov.in"
+  },
+  {
+    "authority_name": "Directorate of Vigilance and Anti-Corruption (DVAC)",
+    "department_category": "REGISTRATION",
+    "zone_or_ward": null,
+    "contact_title": "DVAC 24x7 Anti-Bribery Toll-Free Helpline",
+    "contact_name": "DVAC State Call Center",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-425-4700",
+    "source_url": "https://www.dvac.tn.gov.in"
+  },
+  {
+    "authority_name": "Directorate of Vigilance and Anti-Corruption (DVAC)",
+    "department_category": "REGISTRATION",
+    "zone_or_ward": null,
+    "contact_title": "DVAC Confidential WhatsApp Bribery Cell",
+    "contact_name": "DVAC WhatsApp Desk",
+    "contact_type": "WHATSAPP",
+    "contact_value": "9444380300",
+    "source_url": "https://www.dvac.tn.gov.in"
+  },
+  {
+    "authority_name": "Directorate of Vigilance and Anti-Corruption (DVAC)",
+    "department_category": "REVENUE_AND_TAX",
+    "zone_or_ward": null,
+    "contact_title": "DVAC 24x7 Anti-Bribery Toll-Free Helpline",
+    "contact_name": "DVAC State Call Center",
+    "contact_type": "TOLL_FREE",
+    "contact_value": "1800-425-4700",
+    "source_url": "https://www.dvac.tn.gov.in"
   }
 ]
