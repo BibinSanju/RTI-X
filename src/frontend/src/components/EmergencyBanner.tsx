@@ -16,7 +16,6 @@ export default function EmergencyBanner({ category, severity, pincode }: Emergen
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // We mainly want to show emergency banners for HIGH/MEDIUM severity
     if (severity === 'LOW') {
       setLoading(false);
       return;
@@ -32,52 +31,60 @@ export default function EmergencyBanner({ category, severity, pincode }: Emergen
     loadContacts();
   }, [category, severity, pincode]);
 
-  if (loading) return null; // Don't show anything while loading
-  if (!data || data.contacts.length === 0) return null; // No emergency contacts found
+  if (loading) return null;
+  if (!data || data.contacts.length === 0) return null;
 
   return (
-    <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md my-4 shadow-sm animate-pulse-once">
-      <div className="flex items-start">
-        <div className="flex-shrink-0">
-          <AlertTriangle className="h-6 w-6 text-red-600" aria-hidden="true" />
+    <div className="bg-red-50/90 border border-red-200 border-l-4 border-l-red-500 p-4 rounded-xl my-3 shadow-xs animate-fade-in-up">
+      <div className="flex items-start gap-3">
+        <div className="p-1.5 bg-red-100 rounded-lg text-red-600 flex-shrink-0 mt-0.5">
+          <AlertTriangle className="h-4 w-4" aria-hidden="true" />
         </div>
-        <div className="ml-3 w-full">
-          <h3 className="text-lg font-medium text-red-800">
-            Emergency Contact Available: {data.authorityName}
-          </h3>
-          <div className="mt-2 text-sm text-red-700">
-            <p className="mb-2">
-              Based on your issue ({category.replace(/_/g, ' ')}), you can immediately reach out to the authorities while your RTI is being processed:
-            </p>
-            <ul className="space-y-2 mt-3">
-              {data.contacts.map((contact) => (
-                <li key={contact.id} className="flex items-center bg-white p-2 rounded border border-red-200 shadow-sm">
-                  {contact.type === 'WHATSAPP' && <PhoneForwarded className="w-5 h-5 mr-2 text-green-600" />}
-                  {contact.type === 'TOLL_FREE' && <Phone className="w-5 h-5 mr-2 text-blue-600" />}
-                  {contact.type === 'EMAIL' && <Mail className="w-5 h-5 mr-2 text-gray-600" />}
-                  {(contact.type === 'LANDLINE' || contact.type === 'MOBILE') && <Phone className="w-5 h-5 mr-2 text-gray-800" />}
-                  
-                  <span className="font-semibold text-gray-900 mr-2">{contact.title}:</span>
-                  <a href={contact.type === 'EMAIL' ? `mailto:${contact.value}` : `tel:${contact.value.replace(/\s+/g, '')}`} className="text-blue-700 hover:underline font-bold text-lg">
-                    {contact.value}
-                  </a>
-                  {contact.name && <span className="ml-2 text-xs text-gray-500">({contact.name})</span>}
-                </li>
-              ))}
-            </ul>
-          </div>
-          {data.sourceURL && (
-            <div className="mt-4">
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="text-sm font-bold text-red-900 leading-snug">
+              Emergency Contact Available: {data.authorityName}
+            </h3>
+            {data.sourceURL && (
               <a
                 href={data.sourceURL}
                 target="_blank"
                 rel="noreferrer"
-                className="text-red-700 hover:text-red-600 font-medium text-sm underline"
+                className="text-red-700 hover:text-red-800 text-xs font-semibold underline"
               >
-                Visit Official Portal
+                Official Portal ↗
               </a>
-            </div>
-          )}
+            )}
+          </div>
+          <p className="text-xs text-red-700 mt-1 leading-relaxed">
+            You can reach out to these official helplines immediately while your RTI application is prepared:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 mt-3">
+            {data.contacts.map((contact) => (
+              <div 
+                key={contact.id} 
+                className="flex flex-col sm:flex-row sm:items-center justify-between bg-white px-3 py-2.5 rounded-lg border border-red-200 shadow-2xs gap-2 min-w-0"
+              >
+                <div className="flex items-start sm:items-center gap-2 min-w-0">
+                  {contact.type === 'WHATSAPP' && <PhoneForwarded className="w-3.5 h-3.5 text-green-600 flex-shrink-0 mt-0.5 sm:mt-0" />}
+                  {contact.type === 'TOLL_FREE' && <Phone className="w-3.5 h-3.5 text-blue-600 flex-shrink-0 mt-0.5 sm:mt-0" />}
+                  {contact.type === 'EMAIL' && <Mail className="w-3.5 h-3.5 text-slate-500 flex-shrink-0 mt-0.5 sm:mt-0" />}
+                  {(contact.type === 'LANDLINE' || contact.type === 'MOBILE') && <Phone className="w-3.5 h-3.5 text-slate-700 flex-shrink-0 mt-0.5 sm:mt-0" />}
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-slate-800 leading-snug break-words">{contact.title}</p>
+                    {contact.name && <p className="text-[11px] text-slate-500 break-words">{contact.name}</p>}
+                  </div>
+                </div>
+                <a 
+                  href={contact.type === 'EMAIL' ? `mailto:${contact.value}` : `tel:${contact.value.replace(/\s+/g, '')}`} 
+                  className="text-indigo-700 hover:text-indigo-800 hover:underline font-bold text-xs whitespace-nowrap bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100 shrink-0 self-start sm:self-auto"
+                >
+                  {contact.value}
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

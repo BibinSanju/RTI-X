@@ -65,50 +65,50 @@ interface QueryRowProps {
 
 function QueryRow({ query, isEditing, onChange }: QueryRowProps) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-2 animate-fade-in-up">
+    <div className="rounded-xl border border-slate-200 bg-white p-4 space-y-3 animate-fade-in-up overflow-hidden break-words shadow-2xs">
       {/* Query number + compliance badge */}
       <div className="flex items-start gap-3">
         <span className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center justify-center mt-0.5">
           {query.id}
         </span>
-        <div className="flex-1 min-w-0">
-          {/* If linter modified: show original struck-through */}
+        <div className="flex-1 min-w-0 space-y-2">
+          {/* If linter modified: show original */}
           {query.wasModifiedByLinter && (
-            <div className="mb-2">
-              <p className="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-1 flex items-center gap-1">
-                <AlertTriangle className="w-3 h-3" />
-                Original (AI-corrected)
+            <div className="bg-amber-50/70 border border-amber-200/80 rounded-lg p-3">
+              <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1 flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+                Original Citizen Input
               </p>
-              <p className="text-sm text-slate-400 line-through leading-relaxed">
+              <p className="text-sm text-slate-500 line-through leading-relaxed break-words whitespace-pre-line font-sans">
                 {query.originalQuery}
               </p>
             </div>
           )}
 
           {/* Linted query — editable when isEditing */}
-          <div>
+          <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
             {query.wasModifiedByLinter && (
-              <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-1 flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3" />
-                RTI-GPT Request
+              <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide mb-1.5 flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600" />
+                RTI-GPT Section 2(f) Validated Request
               </p>
             )}
             {isEditing ? (
               <textarea
-                className="input-field text-sm leading-relaxed resize-none min-h-[80px]"
+                className="w-full px-3.5 py-2.5 bg-white border border-indigo-300 rounded-lg text-sm text-slate-900 leading-relaxed font-sans focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-h-[140px] resize-y break-words whitespace-pre-line"
                 value={query.lintedQuery}
                 onChange={(e) => onChange(e.target.value)}
-                rows={3}
+                rows={6}
               />
             ) : (
-              <p className="text-sm text-slate-800 leading-relaxed">
+              <p className="text-sm text-slate-800 leading-relaxed break-words whitespace-pre-line font-sans">
                 {query.lintedQuery}
               </p>
             )}
           </div>
 
           {/* Badges */}
-          <div className="flex flex-wrap gap-2 mt-2">
+          <div className="flex flex-wrap gap-2 pt-1">
             <ValidationBadge
               ok={query.section2fCompliant}
               label="Section 2(f) compliant"
@@ -147,23 +147,23 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 animate-fade-in-up">
+    <div className="w-full max-w-6xl mx-auto space-y-6 animate-fade-in-up">
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="text-center space-y-1 px-4">
-        <h2 className="text-xl font-bold text-slate-800">
+      <div className="text-center space-y-1.5 px-4">
+        <h2 className="text-2xl font-bold text-slate-900">
           Review Your RTI Application
         </h2>
         <p className="text-sm text-slate-500">
-          RTI-GPT has converted your complaint into a legally valid request.
+          RTI-GPT has converted your complaint into a legally valid public records request.
           <br />
-          <span className="text-tamil text-xs text-slate-400">
+          <span className="text-tamil text-xs text-slate-400 mt-1 inline-block">
             உங்கள் புகாரை சட்டப்பூர்வ கோரிக்கையாக மாற்றியுள்ளோம்.
           </span>
         </p>
       </div>
 
       {/* ── Validation Summary Strip ────────────────────────────────────── */}
-      <div className="card p-4 flex flex-wrap gap-2 justify-center">
+      <div className="card p-4 flex flex-wrap gap-2.5 justify-center items-center shadow-2xs">
         <ValidationBadge ok={true} label="Record-based request" />
         <ValidationBadge
           ok={allCompliant}
@@ -190,10 +190,10 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
       </div>
 
       {/* ── Two-Column Content: Complaint vs RTI Request ─────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-4 lg:px-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-        {/* LEFT: Original Complaint */}
-        <div className="space-y-3">
+        {/* LEFT: Original Complaint (5 cols) */}
+        <div className="lg:col-span-5 space-y-4">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-amber-400" />
             <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
@@ -201,39 +201,41 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
             </h3>
           </div>
 
-          <div className="complaint-card min-h-[120px]">
-            <p className="text-base text-slate-700 leading-relaxed">
-              {output.applicant.address && (
-                <span className="text-xs text-slate-500 font-medium block mb-2">
-                  📍 {output.applicant.address}, {output.publicAuthority?.district}
-                </span>
-              )}
-              {/* rawGrievanceSummary is on ExtractedEntities, not VerifiedRtiOutput;
-                  we stash it as the subject for display purposes */}
-              {output.subject}
+          <div className="complaint-card min-h-[140px] space-y-2 overflow-hidden break-words">
+            {output.applicant.address && (
+              <span className="text-xs text-amber-800/80 font-medium block">
+                📍 {output.applicant.address}, {output.publicAuthority?.district}
+              </span>
+            )}
+            <p className="text-xs font-semibold text-amber-900 uppercase tracking-wide">
+              Original Citizen Grievance
+            </p>
+            <p className="text-sm text-slate-800 leading-relaxed break-words whitespace-pre-line font-sans">
+              {output.queries[0]?.originalQuery || output.subject}
             </p>
           </div>
 
           {/* Applicant card */}
-          <div className="card p-4 space-y-1">
+          <div className="card p-4 space-y-2 shadow-2xs">
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
               Applicant Details
             </p>
-            <p className="text-sm font-semibold text-slate-800">
+            <p className="text-sm font-semibold text-slate-900">
               {output.applicant.name || 'Not provided'}
             </p>
-            <p className="text-sm text-slate-600">{output.applicant.address}</p>
+            <p className="text-sm text-slate-600 break-words">{output.applicant.address}</p>
             <p className="text-sm text-slate-600">Pincode: {output.applicant.pincode}</p>
-            <div className="pt-2 border-t border-slate-100">
-              <p className="text-xs text-slate-500">
-                Court Fee: ₹{output.feeDetails.amount} ({output.feeDetails.mode.replace(/_/g, ' ')})
-              </p>
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+              <span>Court Fee: ₹{output.feeDetails.amount}</span>
+              <span className="bg-slate-100 px-2 py-0.5 rounded font-mono text-[11px] text-slate-600">
+                {output.feeDetails.mode.replace(/_/g, ' ')}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* RIGHT: RTI-GPT Legal Queries */}
-        <div className="space-y-3">
+        {/* RIGHT: RTI-GPT Legal Queries (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-indigo-500" />
@@ -257,25 +259,25 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
           </div>
 
           {/* Subject */}
-          <div className="linted-card">
-            <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-1">
+          <div className="linted-card space-y-1.5 overflow-hidden break-words">
+            <p className="text-xs font-semibold text-indigo-700 uppercase tracking-wide">
               Subject
             </p>
             {isEditing ? (
               <input
                 type="text"
-                className="input-field text-sm"
+                className="w-full px-3 py-2 bg-white border border-indigo-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 font-sans"
                 defaultValue={output.subject}
               />
             ) : (
-              <p className="text-sm text-slate-800 font-medium leading-snug">
+              <p className="text-sm text-slate-800 font-medium leading-relaxed break-words">
                 {output.subject}
               </p>
             )}
           </div>
 
           {/* Queries list */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             {queries.map((q) => (
               <QueryRow
                 key={q.id}
@@ -288,10 +290,10 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
 
           {/* Section 6(3) clause note */}
           {output.hasSec6_3Clause && (
-            <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-3">
-              <p className="text-xs text-indigo-700 font-medium leading-relaxed">
-                📌 This application includes the mandatory <strong>Section 6(3) transfer clause</strong>{' '}
-                protecting your rights if the authority is incorrect.
+            <div className="rounded-xl bg-indigo-50/80 border border-indigo-100 p-3.5">
+              <p className="text-xs text-indigo-800 font-medium leading-relaxed">
+                📌 This application includes the statutory <strong>Section 6(3) transfer clause</strong>{' '}
+                mandating the PIO to transfer this application within 5 days if held by another department.
               </p>
             </div>
           )}
@@ -300,14 +302,14 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
 
       {/* ── PIO Authority ───────────────────────────────────────────────── */}
       {hasAuthority && (
-        <div className="card p-5 mx-4 lg:mx-0 space-y-3">
+        <div className="card p-5 space-y-3 shadow-2xs">
           <div className="flex items-center gap-2 mb-1">
             <Landmark className="w-4 h-4 text-indigo-600" />
             <h3 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
               Addressed To
             </h3>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
               <div className="flex items-start gap-2">
                 <Building2 className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
@@ -322,7 +324,7 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
             <div className="space-y-1">
               <div className="flex items-start gap-2">
                 <FileText className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed break-words">
                   {output.publicAuthority.officeAddress}
                 </p>
               </div>
@@ -345,7 +347,7 @@ export default function RtiPreview({ output, onConfirm, onEdit }: RtiPreviewProp
       )}
 
       {/* ── Action Buttons ──────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row gap-3 px-4 lg:px-0 pb-8">
+      <div className="flex flex-col sm:flex-row gap-3 pt-2 pb-8">
         <button
           type="button"
           onClick={onEdit}
